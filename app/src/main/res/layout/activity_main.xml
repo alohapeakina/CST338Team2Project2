@@ -5,14 +5,54 @@
   android:id="@+id/main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
   tools:context=".MainActivity">
   <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World!"
-    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_width="350dp"
+    android:layout_height="50dp"
+    android:id="@+id/welcomeMessageTextView"
+    android:text="@string/welcome_message"
+    android:textSize="35sp"
+    android:gravity="center"
+    android:layout_marginTop="80dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
+  <Button
+    android:id="@+id/viewRecipesButton"
+    android:layout_width="390dp"
+    android:layout_height="125dp"
+    android:layout_marginTop="90dp"
+    android:text="@string/view_recipes"
+    android:textSize="36sp"
+    android:backgroundTint="@color/oceanblue"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/welcomeMessageTextView"
+    />
+  <Button
+    android:id="@+id/viewShoppingListButton"
+    android:layout_width="390dp"
+    android:layout_height="125dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/view_shopping_list"
+    android:textSize="36sp"
+    android:backgroundTint="@color/oceanblue"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/viewRecipesButton"
+    />
+  <Button
+    android:id="@+id/viewWeeklyPlanButton"
+    android:layout_width="390dp"
+    android:layout_height="125dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/view_weekly_plan"
+    android:textSize="36sp"
+    android:backgroundTint="@color/oceanblue"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/viewShoppingListButton"
+    />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
