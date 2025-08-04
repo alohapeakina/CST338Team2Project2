@@ -1,6 +1,7 @@
 package com.example.cst338team2project2;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.cst338team2project2.databinding.ActivityMainBinding;
 
@@ -19,5 +20,13 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     binding = ActivityMainBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
+
+    TextView welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
+
+    String userName = "[User]"; //TODO: Update with logic to find username once database is ready
+    String welcomeMessage = "Welcome " + userName;
+    welcomeMessageTextView.setText(welcomeMessage);
+
   }
+
 }
