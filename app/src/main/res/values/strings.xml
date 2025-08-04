@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">CST338Team2Project2</string>
+  <string name="welcome_message">Welcome Username</string>
 </resources>
