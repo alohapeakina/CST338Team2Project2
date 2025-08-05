@@ -2,7 +2,10 @@ package com.example.pocketmeals.database;
 
 import android.app.Application;
 import android.util.Log;
+import androidx.lifecycle.LiveData;
 import com.example.pocketmeals.MainActivity;
+import com.example.pocketmeals.database.entities.User;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -39,6 +42,21 @@ public class PocketMealsRepository {
       Log.i(MainActivity.TAG,"Problem getting PocketMealsRepository, thread error");
     }
     return null;
+  }
+
+  public void insertUser(User... user){
+    PocketMealsDatabase.databaseWriteExecutor.execute(()->
+    {
+      userDAO.insert(user);
+    });
+  }
+
+  public LiveData<User> getUserByUserName(String username) {
+    return userDAO.getUserByUserName(username);
+  }
+
+  public LiveData<User> getUserByUserId(int userId) {
+    return userDAO.getUserByUserId(userId);
   }
 
 }
