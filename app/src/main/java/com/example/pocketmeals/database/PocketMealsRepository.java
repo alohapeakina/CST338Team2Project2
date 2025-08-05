@@ -28,7 +28,11 @@ public class PocketMealsRepository {
     if(repository != null){
       return repository;
     }
-    Future<PocketMealsRepository> future = PocketMealsDatabase.databaseWriteExecutor.submit(
+
+    //TODO: Replace with Future functionality
+    return new PocketMealsRepository(application);
+
+/*    Future<PocketMealsRepository> future = PocketMealsDatabase.databaseWriteExecutor.submit(
         new Callable<PocketMealsRepository>() {
           @Override
           public PocketMealsRepository call() throws Exception {
@@ -41,7 +45,9 @@ public class PocketMealsRepository {
     }catch (InterruptedException| ExecutionException e){
       Log.i(MainActivity.TAG,"Problem getting PocketMealsRepository, thread error");
     }
-    return null;
+    return null;*/
+
+
   }
 
   public void insertUser(User... user){

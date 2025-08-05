@@ -65,6 +65,7 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
         User admin = new User("admin1","admin1");
         admin.setAdmin(true);
         dao.insert(admin);
+        Log.i(MainActivity.TAG,"Default Admin user inserted");
       });
     }
   };
