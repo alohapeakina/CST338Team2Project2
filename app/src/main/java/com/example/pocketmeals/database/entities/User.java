@@ -13,7 +13,7 @@ import java.util.Objects;
 @Entity(tableName = PocketMealsDatabase.USER_TABLE)
 public class User {
 
-  @PrimaryKey(autoGenerate = true);
+  @PrimaryKey(autoGenerate = true)
   private int id;
   private String username;
   private String password;
