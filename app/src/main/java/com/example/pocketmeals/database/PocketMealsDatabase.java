@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  * created: 8/4/2025
  * Explanation: Core database setup for PocketMeals application
  */
-@Database(entities = {User.class},version = 1, exportSchema = true)
+@Database(entities = {User.class},version = 1, exportSchema = false)
 public abstract class PocketMealsDatabase extends RoomDatabase {
 
   public static final String DATABASE_NAME = "PocketMealsDatabase";
@@ -25,9 +25,16 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
   private static final int NUMBER_OF_THREADS = 4;
   public static final String USER_TABLE = "usertable";
 
+  //TODO: Uncomment code as tables are set up
+  /*
+  public static final String RECIPE_TABLE = "recipes";
+  public static final String RECIPE_INGREDIENTS_TABLE = "recipeingredients";
+  public static final String INGREDIENTS_TABLE = "igredients";
+  public static final String MEAL_TABLE = "meal";
+  */
+
   static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-  //TODO: Uncomment code after UserDAO is created and addDefaultValues is functional
   static PocketMealsDatabase getDatabase(final Context context){
     if(INSTANCE == null){
       synchronized (PocketMealsDatabase.class){
@@ -37,6 +44,7 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
               PocketMealsDatabase.class,
               DATABASE_NAME
               )
+              .fallbackToDestructiveMigration()
               .addCallback(addDefaultValues)
               .build();
         }
@@ -45,14 +53,13 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
     return INSTANCE;
   }
 
-  //TODO: Uncomment this code after UserDAO is created
   //Ensures that an admin user account is created by default whenever the database is created
   private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
     @Override
     public void onCreate(@NonNull SupportSQLiteDatabase db){
       super.onCreate(db);
       Log.i(MainActivity.TAG,"Database Created");
-      databaseWriteExecutor.execute(()->{
+      databaseWriteExecutor.execute(() -> {
         UserDAO dao = INSTANCE.userDAO();
         dao.deleteAll();
         User admin = new User("admin1","admin1");
