@@ -1,4 +1,4 @@
-package com.example.cst338team2project2;
+package com.example.pocketmeals;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

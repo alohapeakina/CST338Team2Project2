@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.cst338team2project2'
+    namespace 'com.example.pocketmeals'
     compileSdk 36
 
     defaultConfig {

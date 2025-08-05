@@ -1,9 +1,9 @@
-package com.example.cst338team2project2;
+package com.example.pocketmeals;
 
 import android.os.Bundle;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.cst338team2project2.databinding.ActivityMainBinding;
+import com.example.pocketmeals.databinding.ActivityMainBinding;
 
 /**
  * @author Andrew Lee
