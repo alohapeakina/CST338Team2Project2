@@ -23,7 +23,7 @@ public interface UserDAO {
   @Delete
   void delete(User user);
 
-  @Query("SELECT * FROM" + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
+  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
   LiveData<List<User>> getAllUsers();
 
   @Query("DELETE FROM " + PocketMealsDatabase.USER_TABLE)
