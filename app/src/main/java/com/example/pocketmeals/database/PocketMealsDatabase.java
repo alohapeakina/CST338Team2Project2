@@ -28,7 +28,7 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
   static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
   //TODO: Uncomment code after UserDAO is created and addDefaultValues is functional
-/*  static PocketMealsDatabase getDatabase(final Context context){
+  static PocketMealsDatabase getDatabase(final Context context){
     if(INSTANCE == null){
       synchronized (PocketMealsDatabase.class){
         if(INSTANCE == null){
@@ -38,16 +38,16 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
               DATABASE_NAME
               )
               .addCallback(addDefaultValues)
-              .build;
+              .build();
         }
       }
     }
     return INSTANCE;
-  }*/
+  }
 
   //TODO: Uncomment this code after UserDAO is created
   //Ensures that an admin user account is created by default whenever the database is created
-/*  private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
+  private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
     @Override
     public void onCreate(@NonNull SupportSQLiteDatabase db){
       super.onCreate(db);
@@ -62,6 +62,6 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
     }
   };
 
-  public abstract UserDAO userDAO();*/
+  public abstract UserDAO userDAO();
 
 }

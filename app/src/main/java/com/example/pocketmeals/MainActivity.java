@@ -14,6 +14,7 @@ import com.example.pocketmeals.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
   private ActivityMainBinding binding;
+  public static final String TAG = "POCKETMEALS";
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
