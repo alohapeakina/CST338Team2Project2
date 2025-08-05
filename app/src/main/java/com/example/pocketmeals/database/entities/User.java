@@ -1,6 +1,8 @@
 package com.example.pocketmeals.database.entities;
 
+import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import com.example.pocketmeals.database.PocketMealsDatabase;
 import java.util.Objects;
 
 /**
@@ -8,9 +10,10 @@ import java.util.Objects;
  * created: 8/4/2025
  * Explanation: POJO for users in database
  */
+@Entity(tableName = PocketMealsDatabase.USER_TABLE)
 public class User {
 
-//  @PrimaryKey(autoGenerate = true);
+  @PrimaryKey(autoGenerate = true);
   private int id;
   private String username;
   private String password;
