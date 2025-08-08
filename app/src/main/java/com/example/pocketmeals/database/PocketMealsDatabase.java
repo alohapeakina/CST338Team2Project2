@@ -2,58 +2,68 @@ package com.example.pocketmeals.database;
 
 import android.content.Context;
 import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.pocketmeals.MainActivity;
+import com.example.pocketmeals.database.dao.UserDAO;
 import com.example.pocketmeals.database.entities.User;
+import com.example.pocketmeals.database.dao.IngredientsDAO;
+import com.example.pocketmeals.database.dao.MealDAO;
+import com.example.pocketmeals.database.dao.RecipeDAO;
+import com.example.pocketmeals.database.entities.Ingredients;
+import com.example.pocketmeals.database.entities.Meal;
+import com.example.pocketmeals.database.entities.Recipe;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+
 /**
- * @author Andrew Lee
- * created: 8/4/2025
- * Explanation: Core database setup for PocketMeals application
+ * @author Jake Castro
+ * Created 8/5/2025
+ * Explanation: Room database configuration for meal planning app
  */
-@Database(entities = {User.class},version = 1, exportSchema = false)
+
+@Database(
+        entities = {Recipe.class, Meal.class, Ingredients.class, User.class},
+        version = 1,
+        exportSchema = false
+)
 public abstract class PocketMealsDatabase extends RoomDatabase {
 
   public static final String DATABASE_NAME = "PocketMealsDatabase";
   private static volatile PocketMealsDatabase INSTANCE;
   private static final int NUMBER_OF_THREADS = 4;
-  public static final String USER_TABLE = "usertable";
 
-  //TODO: Uncomment code as tables are set up
-  /*
-  public static final String RECIPE_TABLE = "recipes";
-  public static final String RECIPE_INGREDIENTS_TABLE = "recipeingredients";
-  public static final String INGREDIENTS_TABLE = "igredients";
-  public static final String MEAL_TABLE = "meal";
-  */
+  // Abstract methods to get DAOs
+  public abstract RecipeDAO recipeDAO();
+  public abstract MealDAO mealDAO();
+  public abstract IngredientsDAO ingredientsDAO();
+  public abstract UserDAO userDAO();
+  static final ExecutorService databaseWriteExecutor =
+          Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
-  static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
-  static PocketMealsDatabase getDatabase(final Context context){
-    if(INSTANCE == null){
-      synchronized (PocketMealsDatabase.class){
-        if(INSTANCE == null){
+  // Singleton pattern for database instance
+  public static PocketMealsDatabase getDatabase(final Context context) {
+    if (INSTANCE == null) {
+      synchronized (PocketMealsDatabase.class) {
+        if (INSTANCE == null) {
           INSTANCE = Room.databaseBuilder(
-              context.getApplicationContext(),
-              PocketMealsDatabase.class,
-              DATABASE_NAME
-              )
-              .fallbackToDestructiveMigration()
-              .addCallback(addDefaultValues)
-              .build();
+                          context.getApplicationContext(),
+                          PocketMealsDatabase.class,
+                          DATABASE_NAME
+                  )
+                  .fallbackToDestructiveMigration() // For development - remove in production
+                  .build();
         }
       }
     }
     return INSTANCE;
   }
 
-  //Ensures that an admin user account is created by default whenever the database is created
   private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
     @Override
     public void onCreate(@NonNull SupportSQLiteDatabase db){
@@ -70,6 +80,12 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
     }
   };
 
-  public abstract UserDAO userDAO();
-
+  // Method to close database
+  public static void closeDatabase() {
+    if (INSTANCE != null && INSTANCE.isOpen()) {
+      INSTANCE.close();
+      INSTANCE = null;
+    }
+  }
+  
 }

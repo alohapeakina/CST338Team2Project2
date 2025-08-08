@@ -10,9 +10,8 @@ import java.util.Objects;
  * created: 8/4/2025
  * Explanation: POJO for users in database
  */
-@Entity(tableName = PocketMealsDatabase.USER_TABLE)
+@Entity(tableName = "user_table")
 public class User {
-
   @PrimaryKey(autoGenerate = true)
   private int id;
   private String username;
