@@ -20,8 +20,8 @@
     app:layout_constraintTop_toTopOf="parent" />
   <Button
     android:id="@+id/viewRecipesButton"
-    android:layout_width="390dp"
-    android:layout_height="125dp"
+    android:layout_width="315dp"
+    android:layout_height="110dp"
     android:layout_marginTop="30dp"
     android:text="@string/view_recipes"
     android:textSize="36sp"
@@ -32,8 +32,8 @@
     />
   <Button
     android:id="@+id/viewShoppingListButton"
-    android:layout_width="390dp"
-    android:layout_height="125dp"
+    android:layout_width="315dp"
+    android:layout_height="110dp"
     android:layout_marginTop="16dp"
     android:text="@string/view_shopping_list"
     android:textSize="36sp"
@@ -44,8 +44,8 @@
     />
   <Button
     android:id="@+id/viewWeeklyPlanButton"
-    android:layout_width="390dp"
-    android:layout_height="125dp"
+    android:layout_width="315dp"
+    android:layout_height="110dp"
     android:layout_marginTop="16dp"
     android:text="@string/view_weekly_plan"
     android:textSize="36sp"
@@ -53,6 +53,19 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/viewShoppingListButton"
+    />
+  <Button
+    android:id="@+id/adminActionsButton"
+    android:layout_width="315dp"
+    android:layout_height="110dp"
+    android:layout_marginTop="16dp"
+    android:text="@string/admin_actions"
+    android:textSize="36sp"
+    android:backgroundTint="@color/oceanblue"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/viewWeeklyPlanButton"
+    android:visibility="invisible"
     />
 
   <Button
