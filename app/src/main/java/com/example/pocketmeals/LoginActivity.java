@@ -26,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
         repository = PocketMealsRepository.getRepository(getApplication());
 
         binding.loginButton.setOnClickListener(v -> verifyUser());
+
+        binding.signupTextView.setOnClickListener(v -> {
+            startActivity(SignupActivity.signupIntentFactory(getApplicationContext()));
+        });
     }
 
     private void verifyUser() {
@@ -41,10 +45,9 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 String password = binding.passwordLoginEditText.getText().toString();
                 if (password.equals(user.getPassword())) {
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                   startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
+
                     finish();
-                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId()));
                 } else {
                     toastMaker("Invalid password.");
                     binding.passwordLoginEditText.setSelection(0);
