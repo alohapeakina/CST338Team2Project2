@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
       if (this.user != null) {
         if(this.user.isAdmin()){
         binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
+        binding.adminActionsButton.setVisibility(View.VISIBLE);
         } else {
           binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
           }
