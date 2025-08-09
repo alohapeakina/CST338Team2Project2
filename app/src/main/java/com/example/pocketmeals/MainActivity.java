@@ -118,23 +118,18 @@ public class MainActivity extends AppCompatActivity {
     MenuInflater inflater = getMenuInflater();
     inflater.inflate(R.menu.logout_menu, menu);
 
-    SharedPreferences prefs = getSharedPreferences("PocketMealsPrefs", MODE_PRIVATE);
-    String username = prefs.getString("username", "Unknown");
-    menu.findItem(R.id.logoutMenuItem).setTitle("Logout (" + username + ")");
-
     return true;
   }
 
   @Override
   public boolean onPrepareOptionsMenu(Menu menu) {
-    // Optional: Show username next to logout
     MenuItem logoutItem = menu.findItem(R.id.logoutMenuItem);
     if (user != null) {
       logoutItem.setTitle("Logout (" + user.getUsername() + ")");
     } else {
       logoutItem.setTitle("Logout");
     }
-    logoutItem.setVisible(true); // Always show it
+    logoutItem.setVisible(true);
     return super.onPrepareOptionsMenu(menu);
   }
 
@@ -151,9 +146,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void logout() {
-    SharedPreferences prefs = getSharedPreferences("PocketMealsPrefs", MODE_PRIVATE);
-    prefs.edit().putBoolean("isLoggedIn", false).apply();
-    prefs.edit().remove("loggedInUserId").apply();
+    SharedPreferences sharedPreferences = getApplicationContext()
+            .getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+    sharedPrefEditor.putInt(getString(R.string.preference_userID_key), LOGGED_OUT);
+    sharedPrefEditor.apply();
 
     Intent intent = new Intent(this, LoginActivity.class);
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
