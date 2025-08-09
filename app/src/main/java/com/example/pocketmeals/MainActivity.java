@@ -56,11 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     updateSharedPreference();
 
-    if (user != null) {
-      String welcomeMessage = "Welcome " + user.getUsername();
-      binding.welcomeMessageTextView.setText(welcomeMessage);
-    }
-
     binding.viewRecipesButton.setOnClickListener(v -> {
       // TODO: Start recipes activity
     });
@@ -72,16 +67,6 @@ public class MainActivity extends AppCompatActivity {
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
     });
-
-    //TODO: Clean up test use cases
-    User testUser = new User("testuser1","testpassword"); //Test case for inserting into DB which ensures DB is created
-    repository.insertUser(testUser);
-
-    TextView welcomeMessageTextView = findViewById(R.id.welcomeMessageTextView);
-    String userName = "[User]"; //TODO: Update with logic to find username once database is ready
-    String welcomeMessage = "Welcome " + userName;
-    welcomeMessageTextView.setText(welcomeMessage);
-
   }
 
   private void updateSharedPreference() {
@@ -111,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
     userObserver.observe(this, u -> {
       this.user = u;
       if (this.user != null) {
-        binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+        if(this.user.isAdmin()){
+        binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
+        } else {
+          binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+          }
       }
     });
   }
