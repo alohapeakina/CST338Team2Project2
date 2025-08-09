@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     userObserver.observe(this, user-> {
       this.user=user;
       if (this.user != null) {
+        invalidateOptionsMenu();
         if(this.user.isAdmin()){
           binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
           binding.manageUsersButton.setVisibility(View.VISIBLE);
