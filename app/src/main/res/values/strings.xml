@@ -13,5 +13,9 @@
   <string name="preference_userID_key">com.example.pocketmeals.USER_ID</string>
   <string name="menu">Menu</string>
   <string name="admin_actions">Admin Actions</string>
+  <string name="admin_options">Admin Options</string>
+  <string name="make_admin">Make Admin</string>
+  <string name="delete_user">Delete User</string>
+  <string name="manage_users">Manage Users</string>
 
 </resources>
