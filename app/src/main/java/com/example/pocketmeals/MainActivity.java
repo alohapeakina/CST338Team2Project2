@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     repository = PocketMealsRepository.getRepository(getApplication());
     loginUser(savedInstanceState);
 
+    if(loggedInUserID == -1){
+      Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
+      startActivity(intent);
+    }
+
     updateSharedPreference();
 
     if (user != null) {

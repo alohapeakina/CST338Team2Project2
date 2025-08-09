@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">CST338Team2Project2</string>
+  <string name="app_name">Pocket Meals</string>
   <string name="welcome_message">Welcome Username</string>
   <string name="view_recipes">View Recipes</string>
   <string name="view_shopping_list">View Shopping List</string>
