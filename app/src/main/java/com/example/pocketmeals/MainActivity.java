@@ -68,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
     });
+
+    binding.adminActionsButton.setOnClickListener(v -> {
+      // TODO: Start admin action activity
+    });
+
   }
 
   private void updateSharedPreference() {
