@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.util.Log;
 
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -69,10 +70,13 @@ public class MainActivity extends AppCompatActivity {
       // TODO: Start weekly plan activity
     });
 
-    binding.adminActionsButton.setOnClickListener(v -> {
-      // TODO: Start admin action activity
+    binding.manageUsersButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(intent);
+      }
     });
-
   }
 
   private void updateSharedPreference() {
@@ -104,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
       if (this.user != null) {
         if(this.user.isAdmin()){
         binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
-        binding.adminActionsButton.setVisibility(View.VISIBLE);
+        binding.manageUsersButton.setVisibility(View.VISIBLE);
         } else {
           binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
           }

@@ -28,8 +28,6 @@ public class AdminActivity extends AppCompatActivity {
     binding.makeAdminButton.setOnClickListener(view -> {
       //TODO: Should send to view that provides text box to select from a list of usernames to promote
     });
-
-
    }
 
    private void deleteUser(){
