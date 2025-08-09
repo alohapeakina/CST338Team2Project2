@@ -12,6 +12,9 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.CST338Team2Project2">
     <activity
+      android:exported="false"
+      android:name=".AdminActivity"/>
+    <activity
         android:exported="false"
         android:name=".SignupActivity" />
     <activity

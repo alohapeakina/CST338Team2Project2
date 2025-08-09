@@ -10,6 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     updatedSharedPreference();
+
+    binding.manageUsersButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(intent);
+      }
+    });
   }
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -86,8 +96,13 @@ public class MainActivity extends AppCompatActivity {
     LiveData<User> userObserver = repository.getUserByUserId(loggedInUserID);
     userObserver.observe(this, user-> {
       this.user=user;
-      if(this.user!=null){
-        invalidateOptionsMenu();
+      if (this.user != null) {
+        if(this.user.isAdmin()){
+          binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
+          binding.manageUsersButton.setVisibility(View.VISIBLE);
+        } else {
+          binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+        }
       }
     });
   }
