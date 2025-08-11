@@ -18,5 +18,7 @@
   <string name="make_admin">Make Admin</string>
   <string name="delete_user">Delete User</string>
   <string name="manage_users">Manage Users</string>
+    <string name="add_recipe">Add Recipe</string>
+  <string name="recipes">Recipes</string>
 
 </resources>

@@ -8,6 +8,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.pocketmeals.MainActivity;
+import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,17 +18,19 @@ import java.util.concurrent.Executors;
  * created: 8/4/2025
  * Explanation: Core database setup for PocketMeals application
  */
-@Database(entities = {User.class},version = 1, exportSchema = false)
+@Database(entities = {User.class, Recipe.class},version = 1, exportSchema = false)
 public abstract class PocketMealsDatabase extends RoomDatabase {
-
+  public abstract UserDAO userDAO();
+  public abstract RecipeDAO recipeDAO();
   public static final String DATABASE_NAME = "PocketMealsDatabase";
   private static volatile PocketMealsDatabase INSTANCE;
   private static final int NUMBER_OF_THREADS = 4;
   public static final String USER_TABLE = "usertable";
+  public static final String RECIPE_TABLE = "recipes";
+
 
   //TODO: Uncomment code as tables are set up
   /*
-  public static final String RECIPE_TABLE = "recipes";
   public static final String RECIPE_INGREDIENTS_TABLE = "recipeingredients";
   public static final String INGREDIENTS_TABLE = "igredients";
   public static final String MEAL_TABLE = "meal";
@@ -66,13 +69,8 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
         admin.setAdmin(true);
         dao.insert(admin);
         Log.i(MainActivity.TAG,"Default Admin user inserted");
-        User testUser1 = new User("testuser","testuser1");
-        dao.insert(testUser1);
-        Log.i(MainActivity.TAG,"Default test user inserted");
       });
     }
   };
-
-  public abstract UserDAO userDAO();
 
 }
