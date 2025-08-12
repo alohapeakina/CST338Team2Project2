@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
