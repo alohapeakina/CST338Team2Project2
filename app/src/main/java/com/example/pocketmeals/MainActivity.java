@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.util.Log;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
     });
+
+    binding.manageUsersButton.setOnClickListener(view -> {
+      Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+      startActivity(intent);
+    });
   }
 
   @Override
@@ -106,27 +112,33 @@ public class MainActivity extends AppCompatActivity {
             .setCancelable(false)
             .show();
   }
+
   private void loginUser(Bundle savedInstanceState) {
-    SharedPreferences sharedPreferences = getSharedPreferences(
-            getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE);
     loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userID_key), LOGGED_OUT);
 
-    if (loggedInUserID == LOGGED_OUT && savedInstanceState != null &&
-            savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
+    if (loggedInUserID == LOGGED_OUT & savedInstanceState != null && savedInstanceState
+            .containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
       loggedInUserID = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
     }
-
     if (loggedInUserID == LOGGED_OUT) {
       loggedInUserID = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
     }
-
-    if (loggedInUserID == LOGGED_OUT) return;
-
+    if (loggedInUserID == LOGGED_OUT) {
+      return;
+    }
     LiveData<User> userObserver = repository.getUserByUserId(loggedInUserID);
-    userObserver.observe(this, u -> {
-      this.user = u;
+    userObserver.observe(this, user -> {
+      this.user = user;
       if (this.user != null) {
-        binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+        invalidateOptionsMenu();
+        if (this.user.isAdmin()) {
+          binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
+          binding.manageUsersButton.setVisibility(View.VISIBLE);
+        } else {
+          binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+        }
       }
     });
   }
