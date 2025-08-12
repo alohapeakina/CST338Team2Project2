@@ -4,7 +4,9 @@ import android.app.Application;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 import com.example.pocketmeals.MainActivity;
+import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
+import com.example.pocketmeals.database.RecipeDAO;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -18,10 +20,14 @@ import java.util.concurrent.Future;
 public class PocketMealsRepository {
   private final UserDAO userDAO;
   private static PocketMealsRepository repository;
+  private RecipeDAO recipeDAO;
+  private LiveData<List<Recipe>> allRecipes;
 
   private PocketMealsRepository(Application application){
     PocketMealsDatabase db = PocketMealsDatabase.getDatabase(application);
     this.userDAO = db.userDAO();
+    recipeDAO = db.recipeDAO();
+    allRecipes = recipeDAO.getAllRecipes();
   }
 
   public static PocketMealsRepository getRepository(Application application){
@@ -64,5 +70,25 @@ public class PocketMealsRepository {
   public LiveData<User> getUserByUserId(int userId) {
     return userDAO.getUserByUserId(userId);
   }
+  public LiveData<List<Recipe>> getAllRecipes() {
+    return allRecipes;
+  }
 
+  public void insertRecipe(Recipe recipe) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      recipeDAO.insert(recipe);
+    });
+  }
+
+  public void updateRecipe(Recipe recipe) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      recipeDAO.update(recipe);
+    });
+  }
+
+  public void deleteRecipe(Recipe recipe) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      recipeDAO.delete(recipe);
+    });
+  }
 }

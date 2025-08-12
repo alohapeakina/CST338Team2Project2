@@ -1,5 +1,6 @@
 package com.example.pocketmeals;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -53,13 +54,29 @@ public class MainActivity extends AppCompatActivity {
     repository = PocketMealsRepository.getRepository(getApplication());
     loginUser(savedInstanceState);
 
-    // If no one is logged in, give choice to log in or sign up
     if (loggedInUserID == LOGGED_OUT) {
       Log.i(TAG, "No user logged in — showing login/signup options");
       showLoginSignupDialog();
     }
 
-    updatedSharedPreference();
+    if (user != null) {
+      String welcomeMessage = "Welcome " + user.getUsername();
+      binding.welcomeMessageTextView.setText(welcomeMessage);
+    }
+
+    updateSharedPreference();
+
+    binding.viewRecipesButton.setOnClickListener(v -> {
+      startActivity(new Intent(MainActivity.this, RecipeActivity.class));
+    });
+
+    binding.viewShoppingListButton.setOnClickListener(v -> {
+      // TODO: Start shopping list activity
+    });
+
+    binding.viewWeeklyPlanButton.setOnClickListener(v -> {
+      // TODO: Start weekly plan activity
+    });
 
     binding.manageUsersButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -69,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
   }
+
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     if(item.getItemId() == R.id.logoutMenuItem){
@@ -78,34 +96,11 @@ public class MainActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  private void loginUser(Bundle savedInstanceState) {
-    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
-            Context.MODE_PRIVATE);
-    loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userID_key),LOGGED_OUT);
-
-    if (loggedInUserID == LOGGED_OUT & savedInstanceState != null && savedInstanceState
-            .containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
-      loggedInUserID = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY,LOGGED_OUT);
-    }
-    if(loggedInUserID==LOGGED_OUT){
-      loggedInUserID=getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
-    }
-    if (loggedInUserID==LOGGED_OUT){
-      return;
-    }
-    LiveData<User> userObserver = repository.getUserByUserId(loggedInUserID);
-    userObserver.observe(this, user-> {
-      this.user=user;
-      if (this.user != null) {
-        invalidateOptionsMenu();
-        if(this.user.isAdmin()){
-          binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
-          binding.manageUsersButton.setVisibility(View.VISIBLE);
-        } else {
-          binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
-        }
-      }
-    });
+  private void updateSharedPreference() {
+    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedPreferences.edit();
+    editor.putInt(getString(R.string.preference_userID_key), loggedInUserID);
+    editor.apply();
   }
 
   private void showLoginSignupDialog() {
@@ -122,11 +117,42 @@ public class MainActivity extends AppCompatActivity {
             .show();
   }
 
-  @Override
-  protected void onSaveInstanceState(@NonNull Bundle outState) {
-    super.onSaveInstanceState(outState);
-    outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY,loggedInUserID);
-    updatedSharedPreference();
+  private void loginUser(Bundle savedInstanceState) {
+    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE);
+    loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userID_key), LOGGED_OUT);
+
+    if (loggedInUserID == LOGGED_OUT & savedInstanceState != null && savedInstanceState
+            .containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
+      loggedInUserID = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
+    }
+    if (loggedInUserID == LOGGED_OUT) {
+      loggedInUserID = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+    }
+    if (loggedInUserID == LOGGED_OUT) {
+      return;
+    }
+    LiveData<User> userObserver = repository.getUserByUserId(loggedInUserID);
+    userObserver.observe(this, user -> {
+      this.user = user;
+      if (this.user != null) {
+        invalidateOptionsMenu();
+        if (this.user.isAdmin()) {
+          binding.welcomeMessageTextView.setText("[Admin]\nWelcome " + user.getUsername());
+          binding.manageUsersButton.setVisibility(View.VISIBLE);
+        } else {
+          binding.welcomeMessageTextView.setText("Welcome " + user.getUsername());
+        }
+      }
+    });
+  }
+
+  private void logout() {
+    loggedInUserID = LOGGED_OUT;
+    updateSharedPreference();
+    getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+    startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+    finish();
   }
 
   @Override
@@ -135,18 +161,6 @@ public class MainActivity extends AppCompatActivity {
     inflater.inflate(R.menu.logout_menu, menu);
 
     return true;
-  }
-
-  @Override
-  public boolean onPrepareOptionsMenu(Menu menu) {
-    MenuItem logoutItem = menu.findItem(R.id.logoutMenuItem);
-    if (user != null) {
-      logoutItem.setTitle("Logout (" + user.getUsername() + ")");
-    } else {
-      logoutItem.setTitle("Logout");
-    }
-    logoutItem.setVisible(true);
-    return super.onPrepareOptionsMenu(menu);
   }
 
   private void showLogoutDialog(){
@@ -161,31 +175,16 @@ public class MainActivity extends AppCompatActivity {
     alertBuilder.create().show();
   }
 
-  private void logout() {
-    SharedPreferences sharedPreferences = getApplicationContext()
-            .getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-    SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-    sharedPrefEditor.putInt(getString(R.string.preference_userID_key), LOGGED_OUT);
-    sharedPrefEditor.apply();
-
-    Intent intent = new Intent(this, LoginActivity.class);
-    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
-
-    finish();
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState) {
+    super.onSaveInstanceState(outState);
+    outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY, loggedInUserID);
+    updateSharedPreference();
   }
 
-  private void updatedSharedPreference() {
-    SharedPreferences sharedPreferences = getApplicationContext()
-            .getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
-    SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-    sharedPrefEditor.putInt(getString(R.string.preference_userID_key),loggedInUserID);
-    sharedPrefEditor.apply();
-  }
-
-  static Intent mainActivityIntentFactory(Context context, int userID) {
-    Intent intent = new Intent(context,MainActivity.class);
-    intent.putExtra(MAIN_ACTIVITY_USER_ID,userID);
+  public static Intent mainActivityIntentFactory(Context context, int userId) {
+    Intent intent = new Intent(context, MainActivity.class);
+    intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
     return intent;
   }
 }
