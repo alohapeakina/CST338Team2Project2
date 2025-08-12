@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.util.Log;
 
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -77,9 +78,12 @@ public class MainActivity extends AppCompatActivity {
       // TODO: Start weekly plan activity
     });
 
-    binding.manageUsersButton.setOnClickListener(view -> {
-      Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-      startActivity(intent);
+    binding.manageUsersButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(intent);
+      }
     });
   }
 
