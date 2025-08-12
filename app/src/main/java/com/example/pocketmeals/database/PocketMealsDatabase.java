@@ -12,9 +12,11 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.pocketmeals.activity.MainActivity;
 import com.example.pocketmeals.database.dao.IngredientDAO;
 import com.example.pocketmeals.database.dao.RecipeDAO;
+import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
 import com.example.pocketmeals.database.dao.UserDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
+import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
 
 import java.io.BufferedReader;
@@ -25,22 +27,23 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Recipe.class, Ingredient.class}, version = 4, exportSchema = false)
+@Database(entities = {User.class, Recipe.class, Ingredient.class, RecipeIngredient.class}, version = 5, exportSchema = false)
 public abstract class PocketMealsDatabase extends RoomDatabase {
   public abstract UserDAO userDAO();
   public abstract RecipeDAO recipeDAO();
   public abstract IngredientDAO ingredientDAO();
-  public static final String DATABASE_NAME = "PocketMealsDatabase";
+  public abstract RecipeIngredientDAO recipeIngredientDAO();
   private static volatile PocketMealsDatabase INSTANCE;
-  private static final int NUMBER_OF_THREADS = 4;
+  public static final String DATABASE_NAME = "PocketMealsDatabase";
   public static final String USER_TABLE = "user_table";
   public static final String RECIPE_TABLE = "recipes";
   public static final String INGREDIENT_TABLE = "ingredient_table";
+  public static final String RECIPE_INGREDIENTS_TABLE = "recipeingredients";
+  private static final int NUMBER_OF_THREADS = 4;
   static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
   //TODO: Uncomment code as tables are set up
   /*
-  public static final String RECIPE_INGREDIENTS_TABLE = "recipeingredients";
   public static final String MEAL_TABLE = "meal";
   */
 
