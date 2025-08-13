@@ -32,26 +32,49 @@ public class IngredientTest {
 
   @Test
   public void getId() {
+    assertEquals(1,cucumber.getId());
+    assertEquals(2, carrot.getId());
   }
 
   @Test
   public void setId() {
+    cucumber.setId(3);
+    carrot.setId(4);
+    assertEquals(3,cucumber.getId());
+    assertEquals(4,carrot.getId());
+    assertNotEquals(1,cucumber.getId());
+    assertNotEquals(2,carrot.getId());
   }
 
   @Test
   public void getName() {
+    assertEquals("cucumber",cucumber.getName());
+    assertEquals("carrot",carrot.getName());
   }
 
   @Test
   public void setName() {
+    cucumber.setName("zucchini");
+    assertEquals("zucchini",cucumber.getName());
+    assertNotEquals("cucumber",cucumber.getName());
+    cucumber.setName("cucumber");
+    assertEquals("cucumber",cucumber.getName());
   }
 
   @Test
   public void getUnit() {
+    assertEquals("count",cucumber.getUnit());
+    assertEquals("count",carrot.getUnit());
   }
 
   @Test
   public void setUnit() {
+    cucumber.setUnit("each");
+    carrot.setUnit("each");
+    assertEquals("each",cucumber.getUnit());
+    assertNotEquals("count",cucumber.getUnit());
+    assertEquals("each",carrot.getUnit());
+    assertNotEquals("count",carrot.getUnit());
   }
 
   @Test
