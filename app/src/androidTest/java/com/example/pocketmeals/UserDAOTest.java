@@ -44,6 +44,17 @@ public class UserDAOTest {
     assertEquals(1,users.size());
     assertEquals("Test User", users.get(0).getUsername());
 
+    //Adding second user
+    User user2 = new User("guestaccount","guestpassword");
+    userDao.insert(user2);
+
+    //Refreshing the list of users and validating new size and user entries
+    List<User> users2 = userDao.getUserList();
+    assertEquals(2,users2.size());
+    assertEquals("Test User",users2.get(0).getUsername());
+    assertEquals("guestaccount", users2.get(1).getUsername());
+
+
   }
 
 
