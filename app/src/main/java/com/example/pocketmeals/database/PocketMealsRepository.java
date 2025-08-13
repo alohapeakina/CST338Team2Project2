@@ -1,16 +1,15 @@
 package com.example.pocketmeals.database;
 
 import android.app.Application;
-import android.util.Log;
+
 import androidx.lifecycle.LiveData;
-import com.example.pocketmeals.MainActivity;
+
+import com.example.pocketmeals.database.dao.UserDAO;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
-import com.example.pocketmeals.database.RecipeDAO;
+import com.example.pocketmeals.database.dao.RecipeDAO;
+
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 /**
  * @author Andrew Lee

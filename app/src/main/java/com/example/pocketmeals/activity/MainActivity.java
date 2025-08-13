@@ -1,11 +1,9 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,13 +11,13 @@ import android.util.Log;
 
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
+import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.databinding.ActivityMainBinding;

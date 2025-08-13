@@ -1,4 +1,4 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.pocketmeals.database.PocketMealsRepository;

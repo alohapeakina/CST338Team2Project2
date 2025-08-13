@@ -1,4 +1,4 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 
 import android.content.Context;
 import android.content.Intent;
