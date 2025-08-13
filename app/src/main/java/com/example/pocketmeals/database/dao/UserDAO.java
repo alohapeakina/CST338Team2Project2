@@ -28,6 +28,10 @@ public interface UserDAO {
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
   LiveData<List<User>> getAllUsers();
 
+  //Test purposes to avoid needing to create a testing utility
+  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
+  List<User> getUserList();
+
   @Query("DELETE FROM " + PocketMealsDatabase.USER_TABLE)
   void deleteAll();
 
