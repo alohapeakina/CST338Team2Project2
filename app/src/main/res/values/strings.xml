@@ -26,5 +26,7 @@
   <string name="save_recipe">Save Recipe</string>
   <string name="shopping_list">Shopping List</string>
   <string name="remove_admin">Remove Admin</string>
+    <string name="select_a_recipe_to_delete">Select a Recipe to Delete</string>
+  <string name="delete_recipe">Delete Recipe</string>
 
 </resources>
