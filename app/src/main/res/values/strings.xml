@@ -25,5 +25,6 @@
   <string name="nutritional_info">Nutritional Info</string>
   <string name="save_recipe">Save Recipe</string>
   <string name="shopping_list">Shopping List</string>
+  <string name="remove_admin">Remove Admin</string>
 
 </resources>
