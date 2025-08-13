@@ -68,8 +68,12 @@ public class MainActivity extends AppCompatActivity {
       startActivity(new Intent(MainActivity.this, RecipeActivity.class));
     });
 
-    binding.viewShoppingListButton.setOnClickListener(v -> {
-      // TODO: Start shopping list activity
+    binding.viewShoppingListButton.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+        startActivity(intent);
+      }
     });
 
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {

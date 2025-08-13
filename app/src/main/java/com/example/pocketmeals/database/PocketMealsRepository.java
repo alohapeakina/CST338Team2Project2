@@ -4,7 +4,9 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.pocketmeals.database.dao.IngredientDAO;
 import com.example.pocketmeals.database.dao.UserDAO;
+import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.database.dao.RecipeDAO;
@@ -20,13 +22,17 @@ public class PocketMealsRepository {
   private final UserDAO userDAO;
   private static PocketMealsRepository repository;
   private RecipeDAO recipeDAO;
+  private IngredientDAO ingredientDAO;
   private LiveData<List<Recipe>> allRecipes;
+  private LiveData<List<Ingredient>> allIngredients;
 
   private PocketMealsRepository(Application application){
     PocketMealsDatabase db = PocketMealsDatabase.getDatabase(application);
     this.userDAO = db.userDAO();
-    recipeDAO = db.recipeDAO();
+    this.recipeDAO = db.recipeDAO();
     allRecipes = recipeDAO.getAllRecipes();
+    this.ingredientDAO = db.ingredientDAO();
+    allIngredients = ingredientDAO.getAllIngredients();
   }
 
   public static PocketMealsRepository getRepository(Application application){
@@ -71,6 +77,10 @@ public class PocketMealsRepository {
   }
   public LiveData<List<Recipe>> getAllRecipes() {
     return allRecipes;
+  }
+
+  public LiveData<List<Ingredient>> getAllIngredients() {
+    return allIngredients;
   }
 
   public void insertRecipe(Recipe recipe) {

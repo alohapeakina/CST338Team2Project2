@@ -24,5 +24,6 @@
   <string name="ingredients">Ingredients</string>
   <string name="nutritional_info">Nutritional Info</string>
   <string name="save_recipe">Save Recipe</string>
+  <string name="shopping_list">Shopping List</string>
 
 </resources>
