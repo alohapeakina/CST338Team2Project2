@@ -13,19 +13,22 @@
       android:theme="@style/Theme.CST338Team2Project2">
     <activity
       android:exported="false"
-      android:name=".activity.AdminActivity"/>
+      android:name=".activity.AddRecipeActivity" />
     <activity
-        android:exported="false"
-        android:name=".activity.SignupActivity" />
+      android:exported="false"
+      android:name=".activity.AdminActivity" />
     <activity
-        android:exported="false"
-        android:name=".activity.LoginActivity"/>
+      android:exported="false"
+      android:name=".activity.SignupActivity" />
     <activity
-        android:exported="false"
-        android:name=".activity.RecipeActivity"/>
+      android:exported="false"
+      android:name=".activity.LoginActivity" />
     <activity
-        android:exported="false"
-        android:name=".activity.AddRecipeActivity"/>
+      android:exported="false"
+      android:name=".activity.RecipeActivity" />
+    <activity
+      android:exported="false"
+      android:name=".activity.ShoppingListActivity" />
     <activity
         android:exported="true"
         android:name=".activity.MainActivity">
