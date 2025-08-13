@@ -104,5 +104,10 @@ public class Ingredient {
     public void setCategory(@NonNull String category) {
         this.category = category;
     }
+
+    @NonNull
+    public String toShoppingList() {
+        return unit + " " + name;
+    }
 }
 

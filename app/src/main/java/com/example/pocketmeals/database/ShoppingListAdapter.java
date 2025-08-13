@@ -10,7 +10,7 @@ import com.example.pocketmeals.database.entities.Ingredient;
 import java.util.List;
 
 /**
- * @author Andrew Lee created: 8/12/2025 Explanation:
+ * Explanation: Creates and binds views for items provided by the ShoppingListViewModel
  */
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingListViewHolder> {
   private List<Ingredient> ingredients;
@@ -33,7 +33,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
   @Override
   public void onBindViewHolder(@NonNull ShoppingListAdapter.ShoppingListViewHolder holder, int position) {
-    holder.textView.setText(ingredients.get(position).getName());
+    holder.textView.setText(ingredients.get(position).toShoppingList());
   }
 
   @Override

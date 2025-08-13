@@ -90,12 +90,15 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
           Ingredient ingredient1 = new Ingredient("Sample ingredient", "tbsp", 100.5, 5.0, 2.1, 9.4, "Sample Category");
           ingrdao.insert(ingredient1);
           Log.i(MainActivity.TAG,"Default ingredient inserted");
+          Ingredient ingredient2 = new Ingredient("Sample ingredient two", "tsp", 15.6, 8.0, 6.1, 3.4, "Sample Category Two");
+          ingrdao.insert(ingredient2);
+          Log.i(MainActivity.TAG,"Second Default ingredient inserted");
           // END DEBUG INGREDIENT
 
           // Add ingredients from file, not functioning at the moment
           List<Ingredient> ingredients = loadIngredientsFromFile(context);
           INSTANCE.ingredientDAO().insertAll(ingredients);
-          Log.i(MainActivity.TAG, "Default ingredients inserted: " + ingredients.size());
+          Log.i(MainActivity.TAG, "Default ingredient list inserted: " + ingredients.size());
         });
       }
     };
