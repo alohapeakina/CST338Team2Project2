@@ -20,7 +20,9 @@ public class UserTest {
   public void setUp() throws Exception {
     adminUser = new User("adminaccount","adminpassword");
     adminUser.setAdmin(true);
+    adminUser.setId(1);
     testUser = new User("testaccount","testpassword");
+    testUser.setId(2);
   }
 
   @After
@@ -31,10 +33,20 @@ public class UserTest {
 
   @Test
   public void getId() {
+    assertEquals(1,adminUser.getId());
+    assertEquals(2,testUser.getId());
+    assertNotEquals(3,adminUser.getId());
+    assertNotEquals(4,testUser.getId());
   }
 
   @Test
   public void setId() {
+    adminUser.setId(3);
+    testUser.setId(4);
+    assertEquals(3,adminUser.getId());
+    assertEquals(4,testUser.getId());
+    assertNotEquals(1,adminUser.getId());
+    assertNotEquals(2,testUser.getId());
   }
 
   @Test
@@ -81,5 +93,13 @@ public class UserTest {
 
   @Test
   public void setAdmin() {
+    assertTrue(adminUser.isAdmin());
+    adminUser.setAdmin(false);
+    assertFalse(adminUser.isAdmin());
+    assertFalse(testUser.isAdmin());
+    testUser.setAdmin(true);
+    assertTrue(testUser.isAdmin());
+    adminUser.setAdmin(true);
+    assertTrue(adminUser.isAdmin());
   }
 }
