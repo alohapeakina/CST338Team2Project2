@@ -55,24 +55,28 @@ public class UserDAOTest {
     assertEquals("guestaccount", users2.get(1).getUsername());
   }
 
-  //TODO: Uncomment as testing continues to be configured
-/*  @Test
+  @Test
   public void delete() {
-  }*/
+    //TODO: Add test logic
+  }
 
-/*  @Test
+  @Test
   public void getAllUsers() {
-  }*/
+    //TODO: Add test logic
+  }
 
-/*  @Test
+  @Test
   public void deleteAll() {
-  }*/
+    //TODO: Add test logic
+  }
 
-/*  @Test
+  @Test
   public void getUserByUserName() {
-  }*/
+    //TODO: Add test logic
+  }
 
-/*  @Test
+  @Test
   public void getUserByUserId() {
-  }*/
+    //TODO: Add test logic
+  }
 }
