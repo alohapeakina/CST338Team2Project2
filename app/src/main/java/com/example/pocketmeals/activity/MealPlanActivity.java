@@ -1,5 +1,7 @@
 package com.example.pocketmeals.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,117 +31,117 @@ import java.util.concurrent.Executors;
 
 public class MealPlanActivity extends AppCompatActivity {
 
-  private static final String TAG = "MEALPLANACTIVITY";
-  private PocketMealsRepository repository;
-  private ExecutorService executor;
+    private static final String TAG = "MEALPLANACTIVITY";
+    private PocketMealsRepository repository;
+    private ExecutorService executor;
 
-  // UI Components
-  private Spinner daySpinner;
-  private Spinner mealTypeSpinner;
-  private Spinner recipeSpinner;
-  private ListView mealPlanListView;
-  private Button addMealButton;
-  private Button viewWeeklyPlanButton;
-  private TextView mealPlanTitle;
+    // UI Components
+    private Spinner daySpinner;
+    private Spinner mealTypeSpinner;
+    private Spinner recipeSpinner;
+    private ListView mealPlanListView;
+    private Button addMealButton;
+    private Button viewWeeklyPlanButton;
+    private TextView mealPlanTitle;
 
-  // Data lists
-  private List<String> days;
-  private List<String> mealTypes;
-  private List<Recipe> recipes;
-  private List<Meal> currentMealPlan;
-  private ArrayAdapter<String> mealPlanAdapter;
+    // Data lists
+    private List<String> days;
+    private List<String> mealTypes;
+    private List<Recipe> recipes;
+    private List<Meal> currentMealPlan;
+    private ArrayAdapter<String> mealPlanAdapter;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_meal_plan);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_meal_plan);
 
-    // Initialize repository and executor
-    repository = PocketMealsRepository.getRepository(getApplication());
-    executor = Executors.newSingleThreadExecutor();
+        // Initialize repository and executor
+        repository = PocketMealsRepository.getRepository(getApplication());
+        executor = Executors.newSingleThreadExecutor();
 
-    // Initialize UI components
-    initializeViews();
+        // Initialize UI components
+        initializeViews();
 
-    // Setup data
-    setupData();
+        // Setup data
+        setupData();
 
-    // Setup listeners
-    setupListeners();
+        // Setup listeners
+        setupListeners();
 
-    // Load initial data
-    loadMealPlan();
-  }
-
-  private void initializeViews() {
-    daySpinner = findViewById(R.id.daySpinner);
-    mealTypeSpinner = findViewById(R.id.mealTypeSpinner);
-    recipeSpinner = findViewById(R.id.recipeSpinner);
-    mealPlanListView = findViewById(R.id.mealPlanListView);
-    addMealButton = findViewById(R.id.addMealButton);
-    viewWeeklyPlanButton = findViewById(R.id.viewWeeklyPlanButton);
-    mealPlanTitle = findViewById(R.id.mealPlanTitle);
-  }
-
-  private void setupData() {
-    // Initialize days of the week
-    days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
-        "Friday", "Saturday", "Sunday");
-
-    // Initialize meal types
-    mealTypes = Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack");
-
-    // Initialize empty lists
-    recipes = new ArrayList<>();
-    currentMealPlan = new ArrayList<>();
-
-    // Setup spinners
-    ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_spinner_item, days);
-    dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    daySpinner.setAdapter(dayAdapter);
-
-    ArrayAdapter<String> mealTypeAdapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_spinner_item, mealTypes);
-    mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-    mealTypeSpinner.setAdapter(mealTypeAdapter);
-
-    // Setup meal plan list view
-    mealPlanAdapter = new ArrayAdapter<>(this,
-        android.R.layout.simple_list_item_1, new ArrayList<>());
-    mealPlanListView.setAdapter(mealPlanAdapter);
-
-    // Load recipes for spinner
-    loadRecipes();
-  }
-
-  private void setupListeners() {
-    addMealButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        addMealToPlan();
-      }
-    });
-
-    viewWeeklyPlanButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
+        // Load initial data
         loadMealPlan();
-      }
-    });
+    }
 
-    // Long click listener for removing meals
-    mealPlanListView.setOnItemLongClickListener((parent, view, position, id) -> {
-      if (position < currentMealPlan.size()) {
-        removeMealFromPlan(position);
-        return true;
-      }
-      return false;
-    });
-  }
+    private void initializeViews() {
+        daySpinner = findViewById(R.id.daySpinner);
+        mealTypeSpinner = findViewById(R.id.mealTypeSpinner);
+        recipeSpinner = findViewById(R.id.recipeSpinner);
+        mealPlanListView = findViewById(R.id.mealPlanListView);
+        addMealButton = findViewById(R.id.addMealButton);
+        viewWeeklyPlanButton = findViewById(R.id.viewWeeklyPlanButton);
+        mealPlanTitle = findViewById(R.id.mealPlanTitle);
+    }
 
-  private void loadRecipes() {
-    //TODO: Refactor this with LiveData<List<Recipe>> in place of List<Recipe>
+    private void setupData() {
+        // Initialize days of the week
+        days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
+                "Friday", "Saturday", "Sunday");
+
+        // Initialize meal types
+        mealTypes = Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack");
+
+        // Initialize empty lists
+        recipes = new ArrayList<>();
+        currentMealPlan = new ArrayList<>();
+
+        // Setup spinners
+        ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, days);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        daySpinner.setAdapter(dayAdapter);
+
+        ArrayAdapter<String> mealTypeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, mealTypes);
+        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mealTypeSpinner.setAdapter(mealTypeAdapter);
+
+        // Setup meal plan list view
+        mealPlanAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, new ArrayList<>());
+        mealPlanListView.setAdapter(mealPlanAdapter);
+
+        // Load recipes for spinner
+        loadRecipes();
+    }
+
+    private void setupListeners() {
+        addMealButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addMealToPlan();
+            }
+        });
+
+        viewWeeklyPlanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadMealPlan();
+            }
+        });
+
+        // Long click listener for removing meals
+        mealPlanListView.setOnItemLongClickListener((parent, view, position, id) -> {
+            if (position < currentMealPlan.size()) {
+                removeMealFromPlan(position);
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private void loadRecipes() {
+        //TODO: Refactor this with LiveData<List<Recipe>> in place of List<Recipe>
     /*executor.execute(() -> {
       try {
        List<Recipe> recipeList = repository.getAllRecipes();
@@ -171,137 +173,141 @@ public class MealPlanActivity extends AppCompatActivity {
         });
       }
     });*/
-  }
+    }
 
-  private void loadMealPlan() {
-    executor.execute(() -> {
-      try {
-        List<Meal> meals = repository.getAllMeals();
-        if (meals != null) {
-          currentMealPlan.clear();
-          currentMealPlan.addAll(meals);
+    private void loadMealPlan() {
+        executor.execute(() -> {
+            try {
+                List<Meal> meals = repository.getAllMeals();
+                if (meals != null) {
+                    currentMealPlan.clear();
+                    currentMealPlan.addAll(meals);
 
-          runOnUiThread(() -> {
-            updateMealPlanDisplay();
-          });
-        }
-      } catch (Exception e) {
-        Log.e(TAG, "Error loading meal plan", e);
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Error loading meal plan", Toast.LENGTH_SHORT).show();
+                    runOnUiThread(() -> {
+                        updateMealPlanDisplay();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error loading meal plan", e);
+                runOnUiThread(() -> {
+                    Toast.makeText(MealPlanActivity.this,
+                            "Error loading meal plan", Toast.LENGTH_SHORT).show();
+                });
+            }
         });
-      }
-    });
-  }
-
-  private void updateMealPlanDisplay() {
-    List<String> displayItems = new ArrayList<>();
-
-    for (Meal meal : currentMealPlan) {
-      String displayText = meal.getDay() + " - " + meal.getMealType();
-      displayItems.add(displayText);
     }
 
-    if (displayItems.isEmpty()) {
-      displayItems.add("No meals planned yet. Add some meals!");
-    }
+    private void updateMealPlanDisplay() {
+        List<String> displayItems = new ArrayList<>();
 
-    mealPlanAdapter.clear();
-    mealPlanAdapter.addAll(displayItems);
-    mealPlanAdapter.notifyDataSetChanged();
-  }
-
-  private void addMealToPlan() {
-    String selectedDay = (String) daySpinner.getSelectedItem();
-    String selectedMealType = (String) mealTypeSpinner.getSelectedItem();
-    int recipePosition = recipeSpinner.getSelectedItemPosition();
-
-    // Validate selections
-    if (selectedDay == null || selectedMealType == null) {
-      Toast.makeText(this, "Please select day and meal type", Toast.LENGTH_SHORT).show();
-      return;
-    }
-
-    if (recipePosition == 0 || recipePosition == -1) {
-      Toast.makeText(this, "Please select a recipe", Toast.LENGTH_SHORT).show();
-      return;
-    }
-
-    // Check if meal already exists for this day and type
-    executor.execute(() -> {
-      try {
-        Meal existingMeal = repository.getMealByDayAndType(selectedDay, selectedMealType);
-
-        if (existingMeal != null) {
-          runOnUiThread(() -> {
-            Toast.makeText(MealPlanActivity.this,
-                "Meal already exists for " + selectedDay + " " + selectedMealType,
-                Toast.LENGTH_SHORT).show();
-          });
-          return;
+        for (Meal meal : currentMealPlan) {
+            String displayText = meal.getDay() + " - " + meal.getMealType();
+            displayItems.add(displayText);
         }
 
-        // Create new meal
-        Meal newMeal = new Meal(selectedMealType, selectedDay);
-        repository.insertMeal(newMeal);
+        if (displayItems.isEmpty()) {
+            displayItems.add("No meals planned yet. Add some meals!");
+        }
 
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Meal added successfully!", Toast.LENGTH_SHORT).show();
-
-          // Reset spinners
-          recipeSpinner.setSelection(0);
-
-          // Reload meal plan
-          loadMealPlan();
-        });
-
-      } catch (Exception e) {
-        Log.e(TAG, "Error adding meal", e);
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Error adding meal", Toast.LENGTH_SHORT).show();
-        });
-      }
-    });
-  }
-
-  private void removeMealFromPlan(int position) {
-    if (position >= currentMealPlan.size()) {
-      return;
+        mealPlanAdapter.clear();
+        mealPlanAdapter.addAll(displayItems);
+        mealPlanAdapter.notifyDataSetChanged();
     }
 
-    Meal mealToRemove = currentMealPlan.get(position);
+    private void addMealToPlan() {
+        String selectedDay = (String) daySpinner.getSelectedItem();
+        String selectedMealType = (String) mealTypeSpinner.getSelectedItem();
+        int recipePosition = recipeSpinner.getSelectedItemPosition();
 
-    executor.execute(() -> {
-      try {
-        repository.deleteMeal(mealToRemove);
+        // Validate selections
+        if (selectedDay == null || selectedMealType == null) {
+            Toast.makeText(this, "Please select day and meal type", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Meal removed successfully!", Toast.LENGTH_SHORT).show();
-          loadMealPlan();
+        if (recipePosition == 0 || recipePosition == -1) {
+            Toast.makeText(this, "Please select a recipe", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check if meal already exists for this day and type
+        executor.execute(() -> {
+            try {
+                Meal existingMeal = repository.getMealByDayAndType(selectedDay, selectedMealType);
+
+                if (existingMeal != null) {
+                    runOnUiThread(() -> {
+                        Toast.makeText(MealPlanActivity.this,
+                                "Meal already exists for " + selectedDay + " " + selectedMealType,
+                                Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                // Create new meal
+                Meal newMeal = new Meal(selectedMealType, selectedDay);
+                repository.insertMeal(newMeal);
+
+                runOnUiThread(() -> {
+                    Toast.makeText(MealPlanActivity.this,
+                            "Meal added successfully!", Toast.LENGTH_SHORT).show();
+
+                    // Reset spinners
+                    recipeSpinner.setSelection(0);
+
+                    // Reload meal plan
+                    loadMealPlan();
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error adding meal", e);
+                runOnUiThread(() -> {
+                    Toast.makeText(MealPlanActivity.this,
+                            "Error adding meal", Toast.LENGTH_SHORT).show();
+                });
+            }
         });
+    }
 
-      } catch (Exception e) {
-        Log.e(TAG, "Error removing meal", e);
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Error removing meal", Toast.LENGTH_SHORT).show();
+    private void removeMealFromPlan(int position) {
+        if (position >= currentMealPlan.size()) {
+            return;
+        }
+
+        Meal mealToRemove = currentMealPlan.get(position);
+
+        executor.execute(() -> {
+            try {
+                repository.deleteMeal(mealToRemove);
+
+                runOnUiThread(() -> {
+                    Toast.makeText(MealPlanActivity.this,
+                            "Meal removed successfully!", Toast.LENGTH_SHORT).show();
+                    loadMealPlan();
+                });
+
+            } catch (Exception e) {
+                Log.e(TAG, "Error removing meal", e);
+                runOnUiThread(() -> {
+                    Toast.makeText(MealPlanActivity.this,
+                            "Error removing meal", Toast.LENGTH_SHORT).show();
+                });
+            }
         });
-      }
-    });
-  }
+    }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    if (executor != null && !executor.isShutdown()) {
-      executor.shutdown();
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (executor != null && !executor.isShutdown()) {
+            executor.shutdown();
+        }
+        if (repository != null) {
+            repository.shutdown();
+        }
     }
-    if (repository != null) {
-      repository.shutdown();
+
+    public static Intent mealPlanIntentFactory(Context packageContext) {
+        return new Intent(packageContext, MealPlanActivity.class);
     }
-  }
 }
