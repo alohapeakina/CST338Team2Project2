@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.viewmodel.RecipeViewModel;
+import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
 import com.example.pocketmeals.database.entities.Recipe;
 
 import java.util.ArrayList;

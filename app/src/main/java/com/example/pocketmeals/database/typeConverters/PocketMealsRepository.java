@@ -1,15 +1,12 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.typeConverters;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.pocketmeals.database.dao.IngredientDAO;
-import com.example.pocketmeals.database.dao.UserDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
-import com.example.pocketmeals.database.dao.RecipeDAO;
 
 import java.util.List;
 

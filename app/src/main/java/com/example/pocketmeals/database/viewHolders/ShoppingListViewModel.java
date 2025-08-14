@@ -1,11 +1,11 @@
-package com.example.pocketmeals.database.viewmodel;
+package com.example.pocketmeals.database.viewHolders;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.pocketmeals.database.PocketMealsRepository;
+import com.example.pocketmeals.database.typeConverters.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Ingredient;
 import java.util.List;
 

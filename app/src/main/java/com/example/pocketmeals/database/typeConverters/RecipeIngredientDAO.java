@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database.dao;
+package com.example.pocketmeals.database.typeConverters;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
