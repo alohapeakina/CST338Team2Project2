@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

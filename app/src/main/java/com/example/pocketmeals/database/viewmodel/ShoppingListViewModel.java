@@ -1,9 +1,11 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.viewmodel;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Ingredient;
 import java.util.List;
 
@@ -13,8 +15,8 @@ import java.util.List;
  * Explanation: View Model for Shopping List Activity
  */
 public class ShoppingListViewModel extends AndroidViewModel {
-  private PocketMealsRepository repository;
-  private LiveData<List<Ingredient>> allIngredients;
+  private final PocketMealsRepository repository;
+  private final LiveData<List<Ingredient>> allIngredients;
 
   public ShoppingListViewModel(@NonNull Application application) {
     super(application);

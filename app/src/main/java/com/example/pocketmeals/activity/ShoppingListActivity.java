@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.ShoppingListAdapter;
-import com.example.pocketmeals.database.ShoppingListViewModel;
+import com.example.pocketmeals.database.adapter.ShoppingListAdapter;
+import com.example.pocketmeals.database.viewmodel.ShoppingListViewModel;
 import java.util.ArrayList;
 
 /**

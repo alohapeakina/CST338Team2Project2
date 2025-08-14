@@ -2,7 +2,6 @@ package com.example.pocketmeals.activity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -10,8 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.PocketMealsRepository;
-import com.example.pocketmeals.database.RecipeViewModel;
+import com.example.pocketmeals.database.viewmodel.RecipeViewModel;
 import com.example.pocketmeals.database.entities.Recipe;
 
 import java.util.ArrayList;
