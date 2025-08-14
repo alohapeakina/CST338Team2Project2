@@ -3,11 +3,9 @@ package com.example.pocketmeals.database;
 import android.content.Context;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.pocketmeals.activity.MainActivity;
 import com.example.pocketmeals.database.dao.IngredientDAO;
@@ -18,12 +16,6 @@ import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
