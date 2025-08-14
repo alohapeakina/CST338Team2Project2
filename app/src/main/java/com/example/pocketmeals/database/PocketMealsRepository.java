@@ -30,6 +30,7 @@ public class PocketMealsRepository {
   private IngredientDAO ingredientDAO;
   private LiveData<List<Recipe>> allRecipes;
   private LiveData<List<Ingredient>> allIngredients;
+  private LiveData<List<User>> allAccounts;
 
   private PocketMealsRepository(Application application){
     PocketMealsDatabase db = PocketMealsDatabase.getDatabase(application);
@@ -39,6 +40,7 @@ public class PocketMealsRepository {
     this.ingredientDAO = db.ingredientDAO();
     allRecipes = recipeDAO.getAllRecipes();
     allIngredients = ingredientDAO.getAllIngredients();
+    allAccounts = userDAO.getAllUsers();
   }
 
   public static PocketMealsRepository getRepository(Application application){
@@ -81,6 +83,7 @@ public class PocketMealsRepository {
   public LiveData<User> getUserByUserId(int userId) {
     return userDAO.getUserByUserId(userId);
   }
+  public LiveData<List<User>> getAllAccounts() { return allAccounts; }
   public LiveData<List<Recipe>> getAllRecipes() {
     return allRecipes;
   }
