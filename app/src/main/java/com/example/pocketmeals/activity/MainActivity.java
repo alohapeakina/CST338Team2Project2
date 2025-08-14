@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     binding.viewShoppingListButton.setOnClickListener(view -> startActivity(ShoppingListActivity.shoppingListIntentFactory(MainActivity.this)));
 
-        binding.viewWeeklyPlanButton.setOnClickListener(v -> startActivity(MealPlanActivity.mealPlanIntentFactory(MainActivity.this)));
-
+    binding.viewWeeklyPlanButton.setOnClickListener(v -> startActivity(MealPlanActivity.mealPlanIntentFactory(MainActivity.this)));
 
     binding.manageUsersButton.setOnClickListener(view -> startActivity(AdminActivity.adminIntentFactory(MainActivity.this)));
   }
