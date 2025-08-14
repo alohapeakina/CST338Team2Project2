@@ -1,5 +1,7 @@
 package com.example.pocketmeals.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -36,4 +38,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
   }
 
+  public static Intent shoppingListIntentFactory(Context context) {
+    return new Intent(context, ShoppingListActivity.class);
+  }
 }

@@ -65,20 +65,21 @@ public class MainActivity extends AppCompatActivity {
 
     updateSharedPreference();
 
-    binding.viewRecipesButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RecipeActivity.class)));
+    binding.viewRecipesButton.setOnClickListener(v -> {
+            startActivity(RecipeActivity.recipeIntentFactory(MainActivity.this));
+    });
 
     binding.viewShoppingListButton.setOnClickListener(view -> {
-      Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-      startActivity(intent);
+      startActivity(ShoppingListActivity.shoppingListIntentFactory(MainActivity.this));
     });
 
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
+      // startActivity(WeeklyPlanActivity.weeklyPlanIntentFactory(MainActivity.this));
     });
 
     binding.manageUsersButton.setOnClickListener(view -> {
-      Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-      startActivity(intent);
+      startActivity(AdminActivity.adminIntentFactory(MainActivity.this));
     });
   }
 
