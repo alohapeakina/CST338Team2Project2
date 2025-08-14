@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
+      Intent intent = new Intent(MainActivity.this, MealPlanActivity.class);
+      startActivity(intent);
     });
 
     binding.manageUsersButton.setOnClickListener(view -> {

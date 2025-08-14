@@ -2,9 +2,12 @@ package com.example.pocketmeals.database;
 
 import android.app.Application;
 
+import android.util.Log;
 import androidx.lifecycle.LiveData;
 
+import com.example.pocketmeals.database.dao.MealDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
+import com.example.pocketmeals.database.entities.Meal;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
 
@@ -19,9 +22,11 @@ import java.util.List;
  * Explanation: Data access and database operations for application
  */
 public class PocketMealsRepository {
+  private static final String TAG = "POCKETMEALSREPOSITORY";
   private final UserDAO userDAO;
   private static PocketMealsRepository repository;
   private RecipeDAO recipeDAO;
+  private MealDAO mealDAO;
   private IngredientDAO ingredientDAO;
   private LiveData<List<Recipe>> allRecipes;
   private LiveData<List<Ingredient>> allIngredients;
@@ -30,8 +35,9 @@ public class PocketMealsRepository {
     PocketMealsDatabase db = PocketMealsDatabase.getDatabase(application);
     this.userDAO = db.userDAO();
     this.recipeDAO = db.recipeDAO();
-    allRecipes = recipeDAO.getAllRecipes();
+    this.mealDAO = db.mealDAO();
     this.ingredientDAO = db.ingredientDAO();
+    allRecipes = recipeDAO.getAllRecipes();
     allIngredients = ingredientDAO.getAllIngredients();
   }
 
@@ -100,4 +106,101 @@ public class PocketMealsRepository {
       recipeDAO.delete(recipe);
     });
   }
+
+  // ============= MEAL METHODS =============
+
+  public void insertMeal(Meal meal) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      try {
+        mealDAO.insert(meal);
+        Log.d(TAG, "Meal inserted: " + meal.getMealType() + " on " + meal.getDay());
+      } catch (Exception e) {
+        Log.e(TAG, "Error inserting meal", e);
+      }
+    });
+  }
+
+  public void updateMeal(Meal meal) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      try {
+        mealDAO.update(meal);
+        Log.d(TAG, "Meal updated: " + meal.getMealType() + " on " + meal.getDay());
+      } catch (Exception e) {
+        Log.e(TAG, "Error updating meal", e);
+      }
+    });
+  }
+
+  public void deleteMeal(Meal meal) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      try {
+        mealDAO.delete(meal);
+        Log.d(TAG, "Meal deleted: " + meal.getMealType() + " on " + meal.getDay());
+      } catch (Exception e) {
+        Log.e(TAG, "Error deleting meal", e);
+      }
+    });
+  }
+
+  public List<Meal> getAllMeals() {
+    try {
+      return mealDAO.getAllMeals();
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting all meals", e);
+      return null;
+    }
+  }
+
+  public Meal getMealById(int mealId) {
+    try {
+      return mealDAO.getMealById(mealId);
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting meal by ID", e);
+      return null;
+    }
+  }
+
+  public List<Meal> getMealsByDay(String day) {
+    try {
+      return mealDAO.getMealsByDay(day);
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting meals by day", e);
+      return null;
+    }
+  }
+
+  public List<Meal> getMealsByType(String mealType) {
+    try {
+      return mealDAO.getMealsByType(mealType);
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting meals by type", e);
+      return null;
+    }
+  }
+
+  public Meal getMealByDayAndType(String day, String mealType) {
+    try {
+      return mealDAO.getMealByDayAndType(day, mealType);
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting meal by day and type", e);
+      return null;
+    }
+  }
+
+  public List<String> getAllDays() {
+    try {
+      return mealDAO.getAllDays();
+    } catch (Exception e) {
+      Log.e(TAG, "Error getting all days", e);
+      return null;
+    }
+  }
+
+  public void shutdown() {
+    if (PocketMealsDatabase.databaseWriteExecutor != null && !PocketMealsDatabase.databaseWriteExecutor.isShutdown()) {
+      PocketMealsDatabase.databaseWriteExecutor.shutdown();
+    }
+  }
+
+
 }
