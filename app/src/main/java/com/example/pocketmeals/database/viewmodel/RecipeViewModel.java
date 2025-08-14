@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.viewmodel;
 
 import android.app.Application;
 
@@ -6,13 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Recipe;
 
 import java.util.List;
 
 public class RecipeViewModel extends AndroidViewModel {
-    private PocketMealsRepository repository;
-    private LiveData<List<Recipe>> allRecipes;
+    private final PocketMealsRepository repository;
+    private final LiveData<List<Recipe>> allRecipes;
 
     public RecipeViewModel(@NonNull Application application) {
         super(application);

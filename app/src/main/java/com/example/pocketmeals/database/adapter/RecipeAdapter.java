@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pocketmeals.database.entities.Recipe;
 
-import java.util.ArrayList;
 import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     private List<Recipe> recipes;
