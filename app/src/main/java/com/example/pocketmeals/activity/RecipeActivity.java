@@ -33,13 +33,9 @@ public class RecipeActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         viewModel.getAllRecipes().observe(this, recipes -> adapter.setRecipes(recipes));
 
-        findViewById(R.id.btnAddRecipe).setOnClickListener(v -> {
-            startActivity(AddRecipeActivity.addRecipeIntentFactory(RecipeActivity.this));
-        });
+        findViewById(R.id.btnAddRecipe).setOnClickListener(v -> startActivity(AddRecipeActivity.addRecipeIntentFactory(RecipeActivity.this)));
 
-        findViewById(R.id.btn_delete_recipe).setOnClickListener(v -> {
-            startActivity(DeleteRecipeActivity.deleteRecipeIntentFactory(this));
-        });
+        findViewById(R.id.btn_delete_recipe).setOnClickListener(v -> startActivity(DeleteRecipeActivity.deleteRecipeIntentFactory(RecipeActivity.this)));
     }
 
     public static Intent recipeIntentFactory(Context packageContext) {
