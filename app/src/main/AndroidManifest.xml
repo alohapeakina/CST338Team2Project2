@@ -30,6 +30,9 @@
       android:exported="false"
       android:name=".activity.ShoppingListActivity" />
     <activity
+        android:exported="false"
+        android:name=".activity.DeleteRecipeActivity" />
+    <activity
         android:exported="true"
         android:name=".activity.MainActivity">
       <intent-filter>
