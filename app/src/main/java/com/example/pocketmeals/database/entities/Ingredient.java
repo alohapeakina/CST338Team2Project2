@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.pocketmeals.database.typeConverters.PocketMealsDatabase;
+import com.example.pocketmeals.database.PocketMealsDatabase;
 
 @Entity(tableName = PocketMealsDatabase.INGREDIENT_TABLE)
 public class Ingredient {

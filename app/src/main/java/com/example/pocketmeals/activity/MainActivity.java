@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.typeConverters.PocketMealsRepository;
+import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.databinding.ActivityMainBinding;
 
@@ -69,10 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
     binding.viewShoppingListButton.setOnClickListener(view -> startActivity(ShoppingListActivity.shoppingListIntentFactory(MainActivity.this)));
 
-    binding.viewWeeklyPlanButton.setOnClickListener(v -> {
-      // TODO: Start weekly plan activity
-      // startActivity(WeeklyPlanActivity.weeklyPlanIntentFactory(MainActivity.this));
-    });
+        binding.viewWeeklyPlanButton.setOnClickListener(v -> startActivity(MealPlanActivity.mealPlanIntentFactory(MainActivity.this)));
+
 
     binding.manageUsersButton.setOnClickListener(view -> startActivity(AdminActivity.adminIntentFactory(MainActivity.this)));
   }

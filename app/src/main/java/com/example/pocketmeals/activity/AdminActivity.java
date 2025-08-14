@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.pocketmeals.database.typeConverters.PocketMealsRepository;
+import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.databinding.ActivityAdminBinding;
 
 /**

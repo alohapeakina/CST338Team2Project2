@@ -25,6 +25,9 @@
       android:name=".activity.LoginActivity" />
     <activity
       android:exported="false"
+      android:name=".activity.MealPlanActivity" />
+    <activity
+      android:exported="false"
       android:name=".activity.RecipeActivity" />
     <activity
       android:exported="false"
