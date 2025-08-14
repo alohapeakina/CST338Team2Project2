@@ -4,8 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.PocketMealsRepository;
+import com.example.pocketmeals.database.entities.User;
+import com.example.pocketmeals.database.viewHolders.AdminAdapter;
+import com.example.pocketmeals.database.viewHolders.AdminViewModel;
 import com.example.pocketmeals.databinding.ActivityAdminBinding;
+import java.util.ArrayList;
 
 /**
  * @author Andrew Lee
@@ -15,14 +23,25 @@ import com.example.pocketmeals.databinding.ActivityAdminBinding;
 public class AdminActivity extends AppCompatActivity {
 
   private ActivityAdminBinding binding;
-  private PocketMealsRepository repository;
+  private AdminViewModel viewModel;
+  private AdminAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     binding = ActivityAdminBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
-    repository = PocketMealsRepository.getRepository(getApplication());
+
+    RecyclerView recyclerView = findViewById(R.id.manageUsersRecyclerView);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    adapter = new AdminAdapter(new ArrayList<>());
+    recyclerView.setAdapter(adapter);
+
+    viewModel = new ViewModelProvider(this).get(AdminViewModel.class);
+    viewModel.getAllAccounts().observe(this,users -> adapter.setAccounts(users));
+
 
     binding.deleteUserButton.setOnClickListener(v -> {
       // TODO: Should send to view that provides text box to select from list of usernames to delete
