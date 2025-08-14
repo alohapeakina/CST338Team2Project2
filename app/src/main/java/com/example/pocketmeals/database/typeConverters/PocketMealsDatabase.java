@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database;
+package com.example.pocketmeals.database.typeConverters;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,10 +8,6 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.pocketmeals.activity.MainActivity;
-import com.example.pocketmeals.database.dao.IngredientDAO;
-import com.example.pocketmeals.database.dao.RecipeDAO;
-import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
-import com.example.pocketmeals.database.dao.UserDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.RecipeIngredient;

@@ -3,7 +3,7 @@ package com.example.pocketmeals.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.pocketmeals.database.PocketMealsDatabase;
+import com.example.pocketmeals.database.typeConverters.PocketMealsDatabase;
 
 @Entity(tableName = PocketMealsDatabase.RECIPE_TABLE)
 public class Recipe {

@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 
-import com.example.pocketmeals.database.PocketMealsRepository;
+import com.example.pocketmeals.database.typeConverters.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.databinding.ActivityLoginBinding;
 
@@ -27,9 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.loginButton.setOnClickListener(v -> verifyUser());
 
-        binding.signupTextView.setOnClickListener(v -> {
-            startActivity(SignupActivity.signupIntentFactory(getApplicationContext()));
-        });
+        binding.signupTextView.setOnClickListener(v -> startActivity(SignupActivity.signupIntentFactory(getApplicationContext())));
     }
 
     private void verifyUser() {

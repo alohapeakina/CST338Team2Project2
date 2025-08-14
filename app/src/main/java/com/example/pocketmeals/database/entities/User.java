@@ -2,7 +2,7 @@ package com.example.pocketmeals.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import com.example.pocketmeals.database.PocketMealsDatabase;
+import com.example.pocketmeals.database.typeConverters.PocketMealsDatabase;
 import java.util.Objects;
 
 /**

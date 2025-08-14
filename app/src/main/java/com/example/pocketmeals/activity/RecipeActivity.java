@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.adapter.RecipeAdapter;
-import com.example.pocketmeals.database.viewmodel.RecipeViewModel;
+import com.example.pocketmeals.database.viewHolders.RecipeAdapter;
+import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
 
 import java.util.ArrayList;
 
