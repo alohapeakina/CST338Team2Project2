@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database.typeConverters;
+package com.example.pocketmeals.database;
 
 import android.app.Application;
 
@@ -8,6 +8,9 @@ import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
 
+import com.example.pocketmeals.database.dao.IngredientDAO;
+import com.example.pocketmeals.database.dao.RecipeDAO;
+import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.List;
 
 /**

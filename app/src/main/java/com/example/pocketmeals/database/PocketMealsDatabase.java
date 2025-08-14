@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database.typeConverters;
+package com.example.pocketmeals.database;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,10 @@ import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
+import com.example.pocketmeals.database.dao.IngredientDAO;
+import com.example.pocketmeals.database.dao.RecipeDAO;
+import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
+import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

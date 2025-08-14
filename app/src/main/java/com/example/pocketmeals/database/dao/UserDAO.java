@@ -1,4 +1,4 @@
-package com.example.pocketmeals.database.typeConverters;
+package com.example.pocketmeals.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,6 +7,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.example.pocketmeals.database.PocketMealsDatabase;
 import com.example.pocketmeals.database.entities.User;
 import java.util.List;
 
