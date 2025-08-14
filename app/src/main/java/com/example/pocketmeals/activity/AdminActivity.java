@@ -1,4 +1,6 @@
 package com.example.pocketmeals.activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,32 +27,32 @@ public class AdminActivity extends AppCompatActivity {
     binding.deleteUserButton.setOnClickListener(v -> {
       // TODO: Should send to view that provides text box to select from list of usernames to delete
       toastMaker("User is deleted");
-    });
+        });
 
     binding.makeAdminButton.setOnClickListener(view -> {
       //TODO: Should send to view that provides text box to select from a list of usernames to promote
       toastMaker("Congrats on the promotion");
-    });
+        });
 
     binding.removeAdminButton.setOnClickListener(view -> {
       //TODO: Should send to view that provides text box to select from a list of usernames to promote
       toastMaker("Returned to normal user");
-    });
+        });
+    }
 
-   }
-
-   private void deleteUser(){
+    private void deleteUser(){
     //TODO: Add deletion logic
-   }
+    }
 
-   private void makeAdmin(){
+    private void makeAdmin(){
     //TODO: Add logic for promoting account to admin
-   }
+    }
 
-
-  private void toastMaker(String message) {
+    private void toastMaker(String message) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-  }
+    }
 
-
+    public static Intent adminIntentFactory(Context context) {
+        return new Intent(context, AdminActivity.class);
+    }
 }

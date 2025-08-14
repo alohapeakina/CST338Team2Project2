@@ -1,5 +1,7 @@
 package com.example.pocketmeals.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -46,5 +48,9 @@ public class DeleteRecipeActivity extends AppCompatActivity {
                 Toast.makeText(this, "Deleted: " + recipeToDelete.getRecipeName(), Toast.LENGTH_SHORT).show();
             });
         });
+    }
+
+    public static Intent deleteRecipeIntentFactory(Context packageContext) {
+        return new Intent(packageContext, DeleteRecipeActivity.class);
     }
 }

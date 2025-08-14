@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.loginButton.setOnClickListener(v -> verifyUser());
 
-        binding.signupTextView.setOnClickListener(v -> startActivity(SignupActivity.signupIntentFactory(getApplicationContext())));
+        binding.signupTextView.setOnClickListener(view -> startActivity(SignupActivity.signupIntentFactory(LoginActivity.this)));
     }
 
     private void verifyUser() {

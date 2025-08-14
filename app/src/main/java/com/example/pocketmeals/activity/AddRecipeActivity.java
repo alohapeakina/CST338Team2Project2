@@ -1,5 +1,7 @@
 package com.example.pocketmeals.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,5 +49,9 @@ public class AddRecipeActivity extends AppCompatActivity {
             Toast.makeText(this, "Recipe Added!", Toast.LENGTH_SHORT).show();
             finish(); // Return to RecipeActivity
         });
+    }
+
+    public static Intent addRecipeIntentFactory(Context packageContext) {
+        return new Intent(packageContext, AddRecipeActivity.class);
     }
 }
