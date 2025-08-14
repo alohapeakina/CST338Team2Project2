@@ -3,7 +3,7 @@ package com.example.pocketmeals.database.entities;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
-import com.example.pocketmeals.database.typeConverters.PocketMealsDatabase;
+import com.example.pocketmeals.database.PocketMealsDatabase;
 
 @Entity(tableName = PocketMealsDatabase.RECIPE_INGREDIENTS_TABLE,
         primaryKeys = {"recipeId", "ingredientId"},

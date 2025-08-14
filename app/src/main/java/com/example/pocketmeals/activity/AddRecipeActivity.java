@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.typeConverters.PocketMealsRepository;
+import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Recipe;
 
 public class AddRecipeActivity extends AppCompatActivity {
