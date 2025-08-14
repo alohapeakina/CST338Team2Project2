@@ -1,5 +1,6 @@
 package com.example.pocketmeals.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.util.Log;
 
 import android.view.View;
-import android.view.View.OnClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
     if (loggedInUserID == LOGGED_OUT) {
       Log.i(TAG, "No user logged in — showing login/signup options");
-      showLoginSignupDialog();
+      startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+      finish();
     }
 
     if (user != null) {
@@ -64,28 +65,20 @@ public class MainActivity extends AppCompatActivity {
 
     updateSharedPreference();
 
-    binding.viewRecipesButton.setOnClickListener(v -> {
-      startActivity(new Intent(MainActivity.this, RecipeActivity.class));
-    });
+    binding.viewRecipesButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, RecipeActivity.class)));
 
-    binding.viewShoppingListButton.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
-        startActivity(intent);
-      }
+    binding.viewShoppingListButton.setOnClickListener(view -> {
+      Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+      startActivity(intent);
     });
 
     binding.viewWeeklyPlanButton.setOnClickListener(v -> {
       // TODO: Start weekly plan activity
     });
 
-    binding.manageUsersButton.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
-        startActivity(intent);
-      }
+    binding.manageUsersButton.setOnClickListener(view -> {
+      Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+      startActivity(intent);
     });
   }
 
@@ -105,20 +98,7 @@ public class MainActivity extends AppCompatActivity {
     editor.apply();
   }
 
-  private void showLoginSignupDialog() {
-    new AlertDialog.Builder(this)
-            .setTitle("Welcome to PocketMeals")
-            .setMessage("Please log in or create a new account.")
-            .setPositiveButton("Login", (dialog, which) -> {
-              startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-            })
-            .setNegativeButton("Sign Up", (dialog, which) -> {
-              startActivity(SignupActivity.signupIntentFactory(getApplicationContext()));
-            })
-            .setCancelable(false)
-            .show();
-  }
-
+  @SuppressLint("SetTextI18n")
   private void loginUser(Bundle savedInstanceState) {
     SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
             Context.MODE_PRIVATE);
