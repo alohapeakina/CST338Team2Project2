@@ -58,4 +58,12 @@ public class Recipe {
             " Fat: " + fat +
             " Carbs: " + carbs + "\n";
     }
+
+    @NonNull
+    public String nutritionToString() {
+        return "Calories: " + totalCalories +
+            " Protein: " + protein +
+            " Fat: " + fat +
+            " Carbs: " + carbs;
+    }
 }

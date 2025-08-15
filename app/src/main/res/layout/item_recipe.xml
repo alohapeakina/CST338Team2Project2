@@ -24,4 +24,13 @@
         android:textSize="14sp"
         android:textColor="@android:color/darker_gray"
         android:layout_marginTop="4dp" />
+
+    <TextView
+      android:id="@+id/tvRecipeNutrition"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/nutritional_info"
+      android:textSize="14sp"
+      android:textColor="@android:color/darker_gray"
+      android:layout_marginTop="4dp" />
 </LinearLayout>
