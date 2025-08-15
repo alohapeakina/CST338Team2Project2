@@ -49,7 +49,7 @@
     android:id="@+id/deleteUserButton"
     android:layout_width="110dp"
     android:layout_height="60dp"
-    android:backgroundTint="@color/oceanblue"
+    android:backgroundTint="@color/rustyred"
     android:text="@string/delete_user"
     android:textSize="15sp"
     app:layout_constraintEnd_toEndOf="parent"
