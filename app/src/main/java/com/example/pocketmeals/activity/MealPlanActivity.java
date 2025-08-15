@@ -12,11 +12,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Meal;
+import com.example.pocketmeals.database.entities.MealRecipeName;
 import com.example.pocketmeals.database.entities.Recipe;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,8 +121,12 @@ public class MealPlanActivity extends AppCompatActivity {
 
         // Long click listener for removing meals
         mealPlanListView.setOnItemLongClickListener((parent, view, position, id) -> {
-            if (position < currentMealPlan.size()) {
-                removeMealFromPlan(position);
+            if (position < displayedMeals.size()) {
+                int mealId = displayedMeals.get(position).mealId;
+                executor.execute(() -> {
+                    repository.deleteMealById(mealId);
+                    runOnUiThread(() -> Toast.makeText(this, "Meal removed successfully!", Toast.LENGTH_SHORT).show());
+                });
                 return true;
             }
             return false;
@@ -132,6 +135,10 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private void loadRecipes() {
         repository.getAllRecipes().observe(this, recipeList -> {
+            Log.d(TAG, "Recipes receivedL " + recipeList.size());
+            for (Recipe r : recipeList) {
+                Log.d(TAG, "Recipe: " + r.getRecipeName());
+            }
             if (recipeList != null) {
                 recipes.clear();
                 recipes.addAll(recipeList);
@@ -153,46 +160,29 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
+    private  List<MealRecipeName> displayedMeals = new ArrayList<>();
     private void loadMealPlan() {
-        executor.execute(() -> {
-            try {
-                List<Meal> meals = repository.getAllMeals();
-                if (meals != null) {
-                    currentMealPlan.clear();
-                    currentMealPlan.addAll(meals);
-
-                    runOnUiThread(() -> {
-                        updateMealPlanDisplay();
-                    });
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Error loading meal plan", e);
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Error loading meal plan", Toast.LENGTH_SHORT).show();
-                });
+        repository.getAllMealsWithRecipeName().observe(this, meals -> {
+            displayedMeals.clear();
+            if (meals != null) {
+                displayedMeals.addAll(meals);
             }
+
+            List<String> displayItems = new ArrayList<>();
+
+            if (meals == null || meals.isEmpty()) {
+                displayItems.add("No meals planned yet. Add some meals!");
+            } else {
+                for (MealRecipeName m : meals) {
+                    String recipeName = (m.recipeName != null) ? m.recipeName : "No recipe selected";
+                    displayItems.add(m.day + ": " + recipeName);
+                }
+            }
+
+            mealPlanAdapter.clear();
+            mealPlanAdapter.addAll(displayItems);
+            mealPlanAdapter.notifyDataSetChanged();
         });
-    }
-
-    private void updateMealPlanDisplay() {
-        List<String> displayItems = new ArrayList<>();
-
-        for (Meal meal : currentMealPlan) {
-            int recipeId = meal.getRecipeId();
-            Recipe recipe = repository.getRecipeById(recipeId);
-            String recipeName = (recipe != null) ? recipe.getRecipeName() : "No recipe selected";
-            String displayText = meal.getDay() + ": " + recipeName;
-            displayItems.add(displayText);
-        }
-
-        if (displayItems.isEmpty()) {
-            displayItems.add("No meals planned yet. Add some meals!");
-        }
-
-        mealPlanAdapter.clear();
-        mealPlanAdapter.addAll(displayItems);
-        mealPlanAdapter.notifyDataSetChanged();
     }
 
     private void addMealToPlan() {
