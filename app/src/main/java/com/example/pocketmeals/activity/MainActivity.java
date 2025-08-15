@@ -27,7 +27,7 @@ import com.example.pocketmeals.databinding.ActivityMainBinding;
  * Created 8/4/2025
  * Explanation: This activity serves as the primary entry point for logged-in users.
  * It displays a welcome message,provides navigation to other parts of
- * the application (recipes, shopping list, weekly plan), and includes
+ * the application (recipes, weekly plan), and includes
  * a logout option. If a user is not logged in, it redirects them to the {@link LoginActivity}.
  * Admin users are also provided with a button to manage other users.
  */
