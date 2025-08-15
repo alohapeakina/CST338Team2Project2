@@ -43,7 +43,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             int fat = Integer.parseInt(etFat.getText().toString().trim());
             int carbs = Integer.parseInt(etCarbs.getText().toString().trim());
 
-            Recipe recipe = new Recipe(name, link, servings, calories, protein, fat, carbs);
+            Recipe recipe = new Recipe(name, link, calories, protein, fat, carbs);
             repository.insertRecipe(recipe);
 
             Toast.makeText(this, "Recipe Added!", Toast.LENGTH_SHORT).show();
