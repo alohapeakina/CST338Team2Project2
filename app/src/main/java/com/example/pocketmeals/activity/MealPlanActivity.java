@@ -2,6 +2,7 @@ package com.example.pocketmeals.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +34,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private static final String TAG = "MEALPLANACTIVITY";
     private PocketMealsRepository repository;
+    private int loggedInUserID;
     private ExecutorService executor;
 
     // UI Components
@@ -56,6 +58,16 @@ public class MealPlanActivity extends AppCompatActivity {
 
         // Initialize repository and executor
         repository = PocketMealsRepository.getRepository(getApplication());
+
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
+        loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userID_key), -1);
+        if (loggedInUserID == -1) {
+            Toast.makeText(this, "No user logged in!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+
         executor = Executors.newSingleThreadExecutor();
 
         // Initialize UI components
@@ -162,7 +174,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private  List<MealRecipeName> displayedMeals = new ArrayList<>();
     private void loadMealPlan() {
-        repository.getAllMealsWithRecipeName().observe(this, meals -> {
+        repository.getAllMealsWithRecipeNameForUser(loggedInUserID).observe(this, meals -> {
             displayedMeals.clear();
             if (meals != null) {
                 displayedMeals.addAll(meals);
@@ -204,7 +216,7 @@ public class MealPlanActivity extends AppCompatActivity {
         Recipe selectedRecipe = recipes.get(recipePosition - 1);
 
         int selectedRecipeId = selectedRecipe.getRecipeId();
-        Meal newMeal = new Meal(selectedDay,selectedRecipeId);
+        Meal newMeal = new Meal(selectedDay,selectedRecipeId, loggedInUserID);
 
 
         // Check if meal already exists for this day and type
@@ -230,44 +242,6 @@ public class MealPlanActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private void removeMealFromPlan(int position) {
-        if (position >= currentMealPlan.size()) {
-            return;
-        }
-
-        Meal mealToRemove = currentMealPlan.get(position);
-
-        executor.execute(() -> {
-            try {
-                repository.deleteMeal(mealToRemove);
-
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Meal removed successfully!", Toast.LENGTH_SHORT).show();
-                    loadMealPlan();
-                });
-
-            } catch (Exception e) {
-                Log.e(TAG, "Error removing meal", e);
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Error removing meal", Toast.LENGTH_SHORT).show();
-                });
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (executor != null && !executor.isShutdown()) {
-            executor.shutdown();
-        }
-        if (repository != null) {
-            repository.shutdown();
-        }
     }
 
     public static Intent mealPlanIntentFactory(Context packageContext) {

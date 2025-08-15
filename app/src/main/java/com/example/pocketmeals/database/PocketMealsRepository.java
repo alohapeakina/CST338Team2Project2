@@ -5,6 +5,7 @@ import android.app.Application;
 import android.util.Log;
 import androidx.lifecycle.LiveData;
 
+import com.example.pocketmeals.activity.MainActivity;
 import com.example.pocketmeals.database.dao.MealDAO;
 import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
@@ -18,6 +19,9 @@ import com.example.pocketmeals.database.dao.IngredientDAO;
 import com.example.pocketmeals.database.dao.RecipeDAO;
 import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @author Andrew Lee
@@ -53,10 +57,7 @@ public class PocketMealsRepository {
       return repository;
     }
 
-    //TODO: Replace with Future functionality
-    return new PocketMealsRepository(application);
-
-/*    Future<PocketMealsRepository> future = PocketMealsDatabase.databaseWriteExecutor.submit(
+    Future<PocketMealsRepository> future = PocketMealsDatabase.databaseWriteExecutor.submit(
         new Callable<PocketMealsRepository>() {
           @Override
           public PocketMealsRepository call() throws Exception {
@@ -66,10 +67,10 @@ public class PocketMealsRepository {
     );
     try{
       return future.get();
-    }catch (InterruptedException| ExecutionException e){
+    }catch (InterruptedException | ExecutionException e){
       Log.i(MainActivity.TAG,"Problem getting PocketMealsRepository, thread error");
     }
-    return null;*/
+    return null;
 
 
   }
@@ -217,11 +218,8 @@ public class PocketMealsRepository {
   public LiveData<List<MealRecipeName>> getAllMealsWithRecipeName() {
     return mealDAO.getAllMealsWithRecipeName();
   }
-
-  public void shutdown() {
-    if (PocketMealsDatabase.databaseWriteExecutor != null && !PocketMealsDatabase.databaseWriteExecutor.isShutdown()) {
-      PocketMealsDatabase.databaseWriteExecutor.shutdown();
-    }
+  public LiveData<List<MealRecipeName>> getAllMealsWithRecipeNameForUser(int userId) {
+    return mealDAO.getAllMealsWithRecipeNameForUser(userId);
   }
 
   // ============= ADMIN METHODS =============

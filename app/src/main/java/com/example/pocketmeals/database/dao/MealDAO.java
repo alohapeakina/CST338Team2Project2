@@ -37,6 +37,14 @@ public interface MealDAO {
       "ORDER BY meal.day ASC")
   LiveData<List<MealRecipeName>> getAllMealsWithRecipeName();
 
+  // Filter meals for a specific user
+  @Query("SELECT meal.mealId AS mealId, meal.day AS day, recipes.recipeName AS recipeName " +
+      "FROM meal " +
+      "LEFT JOIN recipes ON meal.recipeId = recipes.recipeId " +
+      "WHERE meal.userId = :userId " +
+      "ORDER BY meal.day ASC")
+  LiveData<List<MealRecipeName>> getAllMealsWithRecipeNameForUser(int userId);
+
   @Query("SELECT * FROM meal WHERE mealId = :mealId")
   Meal getMealById(int mealId);
 
