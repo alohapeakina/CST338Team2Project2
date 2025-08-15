@@ -1,4 +1,4 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.dao;
 
 import static org.junit.Assert.*;
 
