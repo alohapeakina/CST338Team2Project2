@@ -38,6 +38,7 @@ public class MealPlanActivity extends AppCompatActivity {
     private ExecutorService executor;
 
     // UI Components
+    private TextView caloriesTextView, proteinTextView, fatTextView, carbsTextView;
     private Spinner daySpinner;
     private Spinner recipeSpinner;
     private ListView mealPlanListView;
@@ -55,9 +56,10 @@ public class MealPlanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_plan);
-
-        // Initialize repository and executor
-        repository = PocketMealsRepository.getRepository(getApplication());
+        caloriesTextView = findViewById(R.id.caloriesTextView);
+        proteinTextView = findViewById(R.id.proteinTextView);
+        fatTextView = findViewById(R.id.fatTextView);
+        carbsTextView = findViewById(R.id.carbsTextView);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),Context.MODE_PRIVATE);
         loggedInUserID = sharedPreferences.getInt(getString(R.string.preference_userID_key), -1);
@@ -66,6 +68,24 @@ public class MealPlanActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Initialize repository and executor
+        repository = PocketMealsRepository.getRepository(getApplication());
+
+        //Updates nutritional information in grid
+        repository.getNutritionTotalsForUser(loggedInUserID).observe(this, totals -> {
+            if (totals != null) {
+                caloriesTextView.setText("Calories: " + totals.totalCalories);
+                proteinTextView.setText("Protein: " + totals.totalProtein + "g");
+                fatTextView.setText("Fat: " + totals.totalFat + "g");
+                carbsTextView.setText("Carbs: " + totals.totalCarbs + "g");
+            } else {
+                caloriesTextView.setText("Calories:0g");
+                proteinTextView.setText("Protein: 0g");
+                fatTextView.setText("Fat: 0g");
+                carbsTextView.setText("Carbs: 0g");
+            }
+        });
 
 
         executor = Executors.newSingleThreadExecutor();
