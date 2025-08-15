@@ -2,9 +2,11 @@ package com.example.pocketmeals.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.pocketmeals.database.PocketMealsDatabase;
 import com.example.pocketmeals.database.entities.Ingredient;
@@ -21,5 +23,12 @@ public interface IngredientDAO {
 
     @Query("SELECT * FROM " + PocketMealsDatabase.INGREDIENT_TABLE + " ORDER BY name ASC")
     LiveData<List<Ingredient>> getAllIngredients();
+
+    //Test Functions
+    @Update
+    void update(Ingredient ingredient);
+
+    @Delete
+    void delete(Ingredient ingredient);
 
 }
