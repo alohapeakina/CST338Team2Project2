@@ -35,5 +35,7 @@
   <string name="meal_type">Meal Type:</string>
   <string name="select_day">Select Day:</string>
   <string name="meal_planner">Meal Planner</string>
+    <string name="recipe_title">Recipe Title</string>
+  <string name="recipe_description">Recipe Description</string>
 
 </resources>

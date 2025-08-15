@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.entities.Recipe;
 
 import java.util.List;
@@ -26,26 +27,29 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent, false);
         return new RecipeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.textView.setText(recipes.get(position).toString());
+        Recipe recipe = recipes.get(position);
+        holder.tvTitle.setText(recipe.getRecipeName());
+        holder.tvDescription.setText(recipe.getRecipeLink());
     }
 
     @Override
     public int getItemCount() {
-        return recipes.size();
+        return recipes != null ? recipes.size() : 0;
     }
 
     static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
-        public RecipeViewHolder(View itemView) {
+        TextView tvTitle, tvDescription;
+
+        public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(android.R.id.text1);
+            tvTitle = itemView.findViewById(R.id.tvRecipeTitle);
+            tvDescription = itemView.findViewById(R.id.tvRecipeDescription);
         }
     }
 }
-
