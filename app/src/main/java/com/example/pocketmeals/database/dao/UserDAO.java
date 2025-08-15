@@ -47,7 +47,4 @@ public interface UserDAO {
   //Test purposes to avoid needing to create a testing utility
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
   List<User> getUserList();
-
-  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE id == :userId")
-  User getUserByUserIdSync(int userId);
 }
