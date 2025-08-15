@@ -56,7 +56,8 @@
             android:minHeight="48dp" />
 
         <Button android:id="@+id/btnSaveRecipe"
-            android:text="Save Recipe"
+            android:text="@string/save_recipe"
+            android:backgroundTint="@color/oceanblue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

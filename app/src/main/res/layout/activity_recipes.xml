@@ -23,14 +23,10 @@
         android:paddingTop="8dp" />
 
     <Button
-        android:id="@+id/btnAddRecipe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_recipe" />
-
-    <Button
         android:id="@+id/btn_delete_recipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/oceanblue"
+        android:visibility="invisible"
         android:text="@string/delete_recipe" />
 </LinearLayout>
