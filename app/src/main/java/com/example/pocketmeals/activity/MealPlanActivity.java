@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Meal;
@@ -141,38 +142,26 @@ public class MealPlanActivity extends AppCompatActivity {
     }
 
     private void loadRecipes() {
-        //TODO: Refactor this with LiveData<List<Recipe>> in place of List<Recipe>
-    /*executor.execute(() -> {
-      try {
-       List<Recipe> recipeList = repository.getAllRecipes();
-        if (recipeList != null) {
-          recipes.clear();
-          recipes.addAll(recipeList);
+        repository.getAllRecipes().observe(this, recipeList -> {
+            if (recipeList != null) {
+                recipes.clear();
+                recipes.addAll(recipeList);
 
-          runOnUiThread(() -> {
-            List<String> recipeNames = new ArrayList<>();
-            recipeNames.add("Select a recipe...");
-            for (Recipe recipe : recipes) {
-              recipeNames.add(recipe.getRecipeName());
+                List<String> recipeNames = new ArrayList<>();
+                recipeNames.add("Select a recipe...");
+                for (Recipe recipe : recipes) {
+                    recipeNames.add(recipe.getRecipeName());
+                }
+
+                ArrayAdapter<String> recipeAdapter = new ArrayAdapter<>(
+                    MealPlanActivity.this,
+                    android.R.layout.simple_spinner_item,
+                    recipeNames);
+                recipeAdapter.setDropDownViewResource(
+                    android.R.layout.simple_spinner_dropdown_item);
+                recipeSpinner.setAdapter(recipeAdapter);
             }
-
-            ArrayAdapter<String> recipeAdapter = new ArrayAdapter<>(
-                MealPlanActivity.this,
-                android.R.layout.simple_spinner_item,
-                recipeNames);
-            recipeAdapter.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item);
-            recipeSpinner.setAdapter(recipeAdapter);
-          });
-        }
-      } catch (Exception e) {
-        Log.e(TAG, "Error loading recipes", e);
-        runOnUiThread(() -> {
-          Toast.makeText(MealPlanActivity.this,
-              "Error loading recipes", Toast.LENGTH_SHORT).show();
         });
-      }
-    });*/
     }
 
     private void loadMealPlan() {
