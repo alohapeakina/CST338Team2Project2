@@ -54,6 +54,7 @@ public interface MealDAO {
   @Query("DELETE FROM meal WHERE mealId = :mealId")
   void deleteMealById(int mealId);
 
+  // Keeps list of meals in meal plan in order
   @Query("SELECT DISTINCT day FROM meal ORDER BY day ASC")
   List<String> getAllDays();
 
