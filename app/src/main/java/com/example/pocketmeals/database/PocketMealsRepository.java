@@ -21,9 +21,11 @@ import java.util.concurrent.Future;
 /**
  * @author Andrew Lee
  * created: 8/4/2025
- * Explanation: Data access and database operations for application
+ * Explanation: Data access and database operations for
+ * application
  */
 public class PocketMealsRepository {
+
   private static final String TAG = "POCKETMEALSREPOSITORY";
   private final UserDAO userDAO;
   private static PocketMealsRepository repository;
@@ -32,7 +34,7 @@ public class PocketMealsRepository {
   private LiveData<List<Recipe>> allRecipes;
   private LiveData<List<User>> allAccounts;
 
-  private PocketMealsRepository(Application application){
+  private PocketMealsRepository(Application application) {
     PocketMealsDatabase db = PocketMealsDatabase.getDatabase(application);
     this.userDAO = db.userDAO();
     this.recipeDAO = db.recipeDAO();
@@ -41,8 +43,8 @@ public class PocketMealsRepository {
     allAccounts = userDAO.getAllUsers();
   }
 
-  public static PocketMealsRepository getRepository(Application application){
-    if(repository != null){
+  public static PocketMealsRepository getRepository(Application application) {
+    if (repository != null) {
       return repository;
     }
 
@@ -54,10 +56,10 @@ public class PocketMealsRepository {
           }
         }
     );
-    try{
+    try {
       return future.get();
-    }catch (InterruptedException | ExecutionException e){
-      Log.i(MainActivity.TAG,"Problem getting PocketMealsRepository, thread error");
+    } catch (InterruptedException | ExecutionException e) {
+      Log.i(MainActivity.TAG, "Problem getting PocketMealsRepository, thread error");
     }
     return null;
 
@@ -65,7 +67,8 @@ public class PocketMealsRepository {
   }
 
   // ============= USER METHODS =============
-  public void checkUserAndCreate(String username, String password, Runnable onExists, Runnable onCreate) {
+  public void checkUserAndCreate(String username, String password, Runnable onExists,
+      Runnable onCreate) {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       User existingUser = userDAO.getUserByUserNameSync(username);
       if (existingUser != null) {
@@ -84,7 +87,10 @@ public class PocketMealsRepository {
   public LiveData<User> getUserByUserId(int userId) {
     return userDAO.getUserByUserId(userId);
   }
-  public LiveData<List<User>> getAllAccounts() { return allAccounts; }
+
+  public LiveData<List<User>> getAllAccounts() {
+    return allAccounts;
+  }
 
   // ============= RECIPE METHODS =============
   public LiveData<List<Recipe>> getAllRecipes() {
