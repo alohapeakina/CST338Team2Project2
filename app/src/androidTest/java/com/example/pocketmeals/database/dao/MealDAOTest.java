@@ -12,6 +12,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.pocketmeals.database.PocketMealsDatabase;
 import com.example.pocketmeals.database.entities.Meal;
 
+import com.example.pocketmeals.database.entities.Recipe;
+import com.example.pocketmeals.database.entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -46,7 +48,14 @@ public class MealDAOTest {
 
     @Test
     public void insertAndGetMeal() {
-        Meal meal = new Meal("Monday");
+        Recipe recipe = new Recipe("Pasta", "link.com",45,34,6,1);
+        recipe.setRecipeId(1);
+        db.recipeDAO().insert(recipe);
+
+        User user = new User("exampleuser","password");
+        db.userDAO().insert(user);
+
+        Meal meal = new Meal("Monday", 1, 1);
         mealDAO.insert(meal);
 
         List<Meal> meals = mealDAO.getAllMeals();
@@ -56,7 +65,13 @@ public class MealDAOTest {
 
     @Test
     public void updateMeal() {
-        Meal meal = new Meal("Monday");
+        Recipe recipe = new Recipe("Pasta", "link.com", 45, 34, 6, 1);
+        db.recipeDAO().insert(recipe);
+
+        User user = new User("exampleuser", "password");
+        db.userDAO().insert(user);
+
+        Meal meal = new Meal("Monday", 1, 1);
         mealDAO.insert(meal);
 
         Meal savedMeal = mealDAO.getAllMeals().get(0);
@@ -69,7 +84,13 @@ public class MealDAOTest {
 
     @Test
     public void deleteMeal() {
-        Meal meal = new Meal("Monday");
+        Recipe recipe = new Recipe("Pasta", "link.com", 45, 34, 6, 1);
+        db.recipeDAO().insert(recipe);
+
+        User user = new User("exampleuser", "password");
+        db.userDAO().insert(user);
+
+        Meal meal = new Meal("Monday",1,1 );
         mealDAO.insert(meal);
 
         Meal savedMeal = mealDAO.getAllMeals().get(0);
@@ -80,9 +101,15 @@ public class MealDAOTest {
 
     @Test
     public void getMealsByDay() {
-        mealDAO.insert(new Meal("Monday"));
-        mealDAO.insert(new Meal("Monday"));
-        mealDAO.insert(new Meal("Tuesday"));
+        Recipe recipe = new Recipe("Pasta", "link.com", 45, 34, 6, 1);
+        db.recipeDAO().insert(recipe);
+
+        User user = new User("exampleuser", "password");
+        db.userDAO().insert(user);
+
+        mealDAO.insert(new Meal("Monday",1,1 ));
+        mealDAO.insert(new Meal("Monday", 1,1));
+        mealDAO.insert(new Meal("Tuesday", 1,1));
 
         List<Meal> mondayMeals = mealDAO.getMealsByDay("Monday");
         assertEquals(2, mondayMeals.size());

@@ -17,26 +17,26 @@ import com.example.pocketmeals.database.PocketMealsDatabase;
         @ForeignKey(entity = Recipe.class,
             parentColumns = "recipeId",    // correct for Recipe
             childColumns = "recipeId",
-            onDelete = ForeignKey.CASCADE)/*,
+            onDelete = ForeignKey.CASCADE),
         @ForeignKey(entity = User.class,
             parentColumns = "id",          // correct for Ingredient
             childColumns = "userId",
-            onDelete = ForeignKey.CASCADE)*/
+            onDelete = ForeignKey.CASCADE)
     })
 public class Meal {
 
   @PrimaryKey(autoGenerate = true)
   private int mealId;
   private int recipeId;
-//  private int userId;
+  private int userId;
 
   private String day; // e.g., "Monday", "Tuesday", etc. or date format
 
   // Constructor TODO: Add userID once meal plan is functional
-  public Meal(String day, int recipeId) {
+  public Meal(String day, int recipeId, int userId) {
     this.day = day;
     this.recipeId = recipeId;
-//    this.userId = userId;
+    this.userId = userId;
   }
 
   // Getters and Setters
@@ -69,11 +69,10 @@ public class Meal {
     this.recipeId = recipeId;
   }
 
-  /*  public int getUserId() {
+    public int getUserId() {
     return userId;
   }
-
   public void setUserId(int userId) {
     this.userId = userId;
-  }*/
+  }
 }
