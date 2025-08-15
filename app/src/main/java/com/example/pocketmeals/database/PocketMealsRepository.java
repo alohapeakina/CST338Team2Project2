@@ -7,12 +7,9 @@ import androidx.lifecycle.LiveData;
 
 import com.example.pocketmeals.activity.MainActivity;
 import com.example.pocketmeals.database.dao.MealDAO;
-import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
-import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Meal;
 import com.example.pocketmeals.database.entities.MealRecipeName;
 import com.example.pocketmeals.database.entities.Recipe;
-import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
 
 import com.example.pocketmeals.database.dao.IngredientDAO;
@@ -31,13 +28,10 @@ import java.util.concurrent.Future;
 public class PocketMealsRepository {
   private static final String TAG = "POCKETMEALSREPOSITORY";
   private final UserDAO userDAO;
-  private RecipeIngredientDAO recipeIngredientDAO;
   private static PocketMealsRepository repository;
   private RecipeDAO recipeDAO;
   private MealDAO mealDAO;
-  private IngredientDAO ingredientDAO;
   private LiveData<List<Recipe>> allRecipes;
-  private LiveData<List<Ingredient>> allIngredients;
   private LiveData<List<User>> allAccounts;
 
   private PocketMealsRepository(Application application){
@@ -45,10 +39,7 @@ public class PocketMealsRepository {
     this.userDAO = db.userDAO();
     this.recipeDAO = db.recipeDAO();
     this.mealDAO = db.mealDAO();
-    this.ingredientDAO = db.ingredientDAO();
-    recipeIngredientDAO = db.recipeIngredientDAO();
     allRecipes = recipeDAO.getAllRecipes();
-    allIngredients = ingredientDAO.getAllIngredients();
     allAccounts = userDAO.getAllUsers();
   }
 
@@ -129,14 +120,6 @@ public class PocketMealsRepository {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       recipeDAO.delete(recipe);
     });
-  }
-
-  public LiveData<List<Ingredient>> getAllIngredients() {
-    return allIngredients;
-  }
-
-  public List<RecipeIngredient> getIngredientsForRecipe(int recipeId) {
-    return recipeIngredientDAO.getIngredientsForRecipe(recipeId);
   }
 
 
