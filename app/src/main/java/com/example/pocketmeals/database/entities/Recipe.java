@@ -1,17 +1,19 @@
 package com.example.pocketmeals.database.entities;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.pocketmeals.database.PocketMealsDatabase;
+import com.example.pocketmeals.database.dao.RecipeDAO;
 
 @Entity(tableName = PocketMealsDatabase.RECIPE_TABLE)
 public class Recipe {
 
     @PrimaryKey(autoGenerate = true)
     private int recipeId;
-
     private String recipeName;
     private String recipeLink;
     private int servings;
@@ -59,10 +61,30 @@ public class Recipe {
     @NonNull
     @Override
     public String toString() {
-        return recipeName + "\n" +
+        return recipeName + "\n" + recipeLink + "\n" +
             "kCal: " + totalCalories +
             " Protein: " + protein +
             " Fat: " + fat +
             " Carbs: " + carbs;
     }
+
+    //TODO: Find which class to put this logic in
+/*    private void updateNutritionalInfo(int recipeId, double totalCalories, double totalProtein, double totalFat, double totalCarbs) {
+
+        LiveData<Recipe> recipeLiveData = RecipeDAO.getRecipeById(recipeId);
+
+        recipeLiveData.observe(this, new Observer<Recipe>() {
+            @Override
+            public void onChanged(Recipe recipe) {
+                if (recipe != null) {
+                    recipe.setTotalCalories(totalCalories);
+                    recipe.setProtein(totalProtein);
+                    recipe.setFat(totalFat);
+                    recipe.setCarbs(totalCarbs);
+
+                    RecipeDAO.update(recipe);
+                }
+            }
+        });
+    }*/
 }
