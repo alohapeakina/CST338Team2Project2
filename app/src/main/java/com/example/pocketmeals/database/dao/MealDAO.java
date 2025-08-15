@@ -51,17 +51,8 @@ public interface MealDAO {
   @Query("SELECT * FROM meal WHERE day = :day")
   List<Meal> getMealsByDay(String day);
 
-  @Query("SELECT * FROM meal WHERE day = :day")
-  Meal getSingleMealByDay(String day);
-
-  @Query("DELETE FROM meal")
-  void deleteAllMeals();
-
   @Query("DELETE FROM meal WHERE mealId = :mealId")
   void deleteMealById(int mealId);
-
-  @Query("SELECT COUNT(*) FROM meal")
-  int getMealCount();
 
   @Query("SELECT DISTINCT day FROM meal ORDER BY day ASC")
   List<String> getAllDays();
