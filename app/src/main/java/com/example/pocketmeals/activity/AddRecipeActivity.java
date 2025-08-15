@@ -36,10 +36,10 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
             String link = etLink.getText().toString().trim();
-            int calories = Integer.parseInt(etCalories.getText().toString().trim());
-            int protein = Integer.parseInt(etProtein.getText().toString().trim());
-            int fat = Integer.parseInt(etFat.getText().toString().trim());
-            int carbs = Integer.parseInt(etCarbs.getText().toString().trim());
+            double calories = Double.parseDouble(etCalories.getText().toString().trim());
+            double protein = Double.parseDouble(etProtein.getText().toString().trim());
+            double fat = Double.parseDouble(etFat.getText().toString().trim());
+            double carbs = Double.parseDouble(etCarbs.getText().toString().trim());
 
             Recipe recipe = new Recipe(name, link, calories, protein, fat, carbs);
             repository.insertRecipe(recipe);
