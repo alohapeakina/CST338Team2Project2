@@ -95,6 +95,10 @@ public class IngredientTest {
 
   @Test
   public void setProtein() {
+    cucumber.setProtein(3.8);
+    carrot.setProtein(1.5);
+    assertEquals(3.8,cucumber.getProtein(),0);
+    assertEquals(1.5,carrot.getProtein(),0);
   }
 
   @Test
@@ -105,6 +109,10 @@ public class IngredientTest {
 
   @Test
   public void setFat() {
+    cucumber.setFat(1.9);
+    carrot.setFat(4.3);
+    assertEquals(1.9,cucumber.getFat(),0);
+    assertEquals(4.3,carrot.getFat(),0);
   }
 
   @Test
@@ -115,6 +123,10 @@ public class IngredientTest {
 
   @Test
   public void setCarbs() {
+    cucumber.setCarbs(9.4);
+    carrot.setCarbs(0.4);
+    assertEquals(9.4,cucumber.getCarbs(),0);
+    assertEquals(0.4,carrot.getCarbs(),0);
   }
 
   @Test
@@ -125,9 +137,15 @@ public class IngredientTest {
 
   @Test
   public void setCategory() {
+    cucumber.setCategory("Produce");
+    carrot.setCategory("Produce");
+    assertEquals("Produce",cucumber.getCategory());
+    assertEquals("Produce",carrot.getCategory());
   }
 
   @Test
   public void toShoppingList() {
+    assertEquals("count cucumber", cucumber.toShoppingList());
+    assertEquals("count carrot", carrot.toShoppingList());
   }
 }
