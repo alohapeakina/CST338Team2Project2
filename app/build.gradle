@@ -44,8 +44,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "androidx.test:core:1.7.0"
     testImplementation "androidx.room:room-testing:2.7.2"
-
-
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
 
     def room_version = "2.7.2"
 
