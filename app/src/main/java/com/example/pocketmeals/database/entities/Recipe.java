@@ -56,6 +56,6 @@ public class Recipe {
             "kCal: " + totalCalories +
             " Protein: " + protein +
             " Fat: " + fat +
-            " Carbs: " + carbs;
+            " Carbs: " + carbs + "\n";
     }
 }
