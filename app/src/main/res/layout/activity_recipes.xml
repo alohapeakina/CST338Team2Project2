@@ -27,6 +27,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/oceanblue"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:text="@string/delete_recipe" />
 </LinearLayout>

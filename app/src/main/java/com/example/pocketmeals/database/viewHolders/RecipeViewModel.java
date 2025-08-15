@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.Recipe;
+import com.example.pocketmeals.database.entities.User;
+
 import java.util.List;
 
 public class RecipeViewModel extends AndroidViewModel {
@@ -33,4 +35,7 @@ public class RecipeViewModel extends AndroidViewModel {
         repository.deleteRecipe(recipe);
     }
 
+    public LiveData<User> getUserById(int userId) {
+        return repository.getUserByUserId(userId);
+    }
 }

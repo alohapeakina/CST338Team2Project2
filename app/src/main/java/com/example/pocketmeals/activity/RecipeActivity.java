@@ -2,14 +2,18 @@ package com.example.pocketmeals.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pocketmeals.R;
+import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.database.viewHolders.RecipeAdapter;
 import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
 
@@ -53,7 +57,45 @@ public class RecipeActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         viewModel.getAllRecipes().observe(this, recipes -> adapter.setRecipes(recipes));
 
-        findViewById(R.id.btn_delete_recipe).setOnClickListener(v -> startActivity(DeleteRecipeActivity.deleteRecipeIntentFactory(RecipeActivity.this)));
+        setupAdminDeleteButton(findViewById(R.id.btn_delete_recipe), savedInstanceState);
+
+        findViewById(R.id.btn_delete_recipe).setOnClickListener(v ->
+                startActivity(DeleteRecipeActivity.deleteRecipeIntentFactory(RecipeActivity.this))
+        );
+    }
+
+    /**
+     * Sets up the visibility of the delete button based on whether the
+     * currently logged-in user is an admin. Uses LiveData observation.
+     *
+     * @param deleteButton The delete recipe button to toggle visibility.
+     * @param savedInstanceState Saved instance state bundle.
+     */
+    private void setupAdminDeleteButton(View deleteButton, Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+        int loggedInUserId = sharedPreferences.getInt(
+                getString(R.string.preference_userID_key), -1);
+
+        if (loggedInUserId == -1 && savedInstanceState != null
+                && savedInstanceState.containsKey("SAVED_INSTANCE_STATE_USERID_KEY")) {
+            loggedInUserId = savedInstanceState.getInt("SAVED_INSTANCE_STATE_USERID_KEY", -1);
+        }
+
+        if (loggedInUserId == -1) {
+            loggedInUserId = getIntent().getIntExtra("MAIN_ACTIVITY_USER_ID", -1);
+        }
+
+        if (loggedInUserId != -1) {
+            viewModel.getUserById(loggedInUserId).observe(this, user -> {
+                if (user != null && user.isAdmin()) {
+                    deleteButton.setVisibility(View.VISIBLE);
+                } else {
+                    deleteButton.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     /**
