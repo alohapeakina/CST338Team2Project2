@@ -232,33 +232,6 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
-    private void removeMealFromPlan(int position) {
-        if (position >= currentMealPlan.size()) {
-            return;
-        }
-
-        Meal mealToRemove = currentMealPlan.get(position);
-
-        executor.execute(() -> {
-            try {
-                repository.deleteMeal(mealToRemove);
-
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Meal removed successfully!", Toast.LENGTH_SHORT).show();
-                    loadMealPlan();
-                });
-
-            } catch (Exception e) {
-                Log.e(TAG, "Error removing meal", e);
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Error removing meal", Toast.LENGTH_SHORT).show();
-                });
-            }
-        });
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
