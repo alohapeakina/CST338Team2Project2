@@ -76,6 +76,18 @@ public class PocketMealsRepository {
     });
   }
 
+  public void checkUserAndCreate(String username, String password, Runnable onExists, Runnable onCreate) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
+      User existingUser = userDAO.getUserByUserNameSync(username);
+      if (existingUser != null) {
+        onExists.run();
+      } else {
+        userDAO.insert(new User(username, password));
+        onCreate.run();
+      }
+    });
+  }
+
   public LiveData<User> getUserByUserName(String username) {
     return userDAO.getUserByUserName(username);
   }
@@ -214,5 +226,6 @@ public class PocketMealsRepository {
   public void updateUser(User user) {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> userDAO.update(user));
   }
+
 
 }
