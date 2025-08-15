@@ -11,8 +11,6 @@ import com.example.pocketmeals.database.entities.Meal;
 import com.example.pocketmeals.database.entities.MealRecipeName;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.User;
-
-import com.example.pocketmeals.database.dao.IngredientDAO;
 import com.example.pocketmeals.database.dao.RecipeDAO;
 import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.List;

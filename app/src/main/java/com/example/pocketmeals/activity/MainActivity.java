@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     binding.viewRecipesButton.setOnClickListener(v -> startActivity(RecipeActivity.recipeIntentFactory(MainActivity.this)));
 
-    binding.viewShoppingListButton.setOnClickListener(view -> startActivity(ShoppingListActivity.shoppingListIntentFactory(MainActivity.this)));
+    binding.addRecipeButton.setOnClickListener(view -> startActivity(AddRecipeActivity.addRecipeIntentFactory(MainActivity.this)));
 
     binding.viewWeeklyPlanButton.setOnClickListener(v -> startActivity(MealPlanActivity.mealPlanIntentFactory(MainActivity.this)));
 

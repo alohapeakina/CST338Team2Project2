@@ -17,7 +17,7 @@ import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Recipe.class, Meal.class}, version = 8, exportSchema = false)
+@Database(entities = {User.class, Recipe.class, Meal.class}, version = 9, exportSchema = false)
 public abstract class PocketMealsDatabase extends RoomDatabase {
   public abstract UserDAO userDAO();
   public abstract RecipeDAO recipeDAO();
