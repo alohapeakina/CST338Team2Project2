@@ -26,25 +26,25 @@ public interface MealDAO {
   @Delete
   void delete(Meal meal);
 
-  @Query("SELECT * FROM meal_table ORDER BY day ASC")
+  @Query("SELECT * FROM meal ORDER BY day ASC")
   List<Meal> getAllMeals();
 
-  @Query("SELECT * FROM meal_table WHERE mealId = :mealId")
+  @Query("SELECT * FROM meal WHERE mealId = :mealId")
   Meal getMealById(int mealId);
 
-  @Query("SELECT * FROM meal_table WHERE day = :day")
+  @Query("SELECT * FROM meal WHERE day = :day")
   List<Meal> getMealsByDay(String day);
 
-  @Query("SELECT * FROM meal_table WHERE day = :day")
+  @Query("SELECT * FROM meal WHERE day = :day")
   Meal getSingleMealByDay(String day);
 
-  @Query("DELETE FROM meal_table")
+  @Query("DELETE FROM meal")
   void deleteAllMeals();
 
-  @Query("SELECT COUNT(*) FROM meal_table")
+  @Query("SELECT COUNT(*) FROM meal")
   int getMealCount();
 
-  @Query("SELECT DISTINCT day FROM meal_table ORDER BY day ASC")
+  @Query("SELECT DISTINCT day FROM meal ORDER BY day ASC")
   List<String> getAllDays();
 
 }

@@ -98,6 +98,10 @@ public class PocketMealsRepository {
     });
   }
 
+  public Recipe getRecipeById(int recipeId) {
+    return recipeDAO.getRecipeById(recipeId).getValue();
+  }
+
   public void updateRecipe(Recipe recipe) {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       recipeDAO.update(recipe);

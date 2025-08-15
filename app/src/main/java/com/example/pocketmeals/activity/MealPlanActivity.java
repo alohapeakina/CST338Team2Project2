@@ -179,7 +179,10 @@ public class MealPlanActivity extends AppCompatActivity {
         List<String> displayItems = new ArrayList<>();
 
         for (Meal meal : currentMealPlan) {
-            String displayText = meal.getDay();
+            int recipeId = meal.getRecipeId();
+            Recipe recipe = repository.getRecipeById(recipeId);
+            String recipeName = (recipe != null) ? recipe.getRecipeName() : "No recipe selected";
+            String displayText = meal.getDay() + ": " + recipeName;
             displayItems.add(displayText);
         }
 
@@ -207,13 +210,18 @@ public class MealPlanActivity extends AppCompatActivity {
             return;
         }
 
+        //Offset by 1 for "Select a recipe..." text
+        Recipe selectedRecipe = recipes.get(recipePosition - 1);
+
+        int selectedRecipeId = selectedRecipe.getRecipeId();
+        Meal newMeal = new Meal(selectedDay,selectedRecipeId);
+
+
         // Check if meal already exists for this day and type
         executor.execute(() -> {
             try {
-                // Create new meal
-                Meal newMeal = new Meal(selectedDay);
+//                Meal newMeal = new Meal(selectedDay, selectedRecipe);
                 repository.insertMeal(newMeal);
-
                 runOnUiThread(() -> {
                     Toast.makeText(MealPlanActivity.this,
                             "Meal added successfully!", Toast.LENGTH_SHORT).show();
@@ -224,7 +232,6 @@ public class MealPlanActivity extends AppCompatActivity {
                     // Reload meal plan
                     loadMealPlan();
                 });
-
             } catch (Exception e) {
                 Log.e(TAG, "Error adding meal", e);
                 runOnUiThread(() -> {
