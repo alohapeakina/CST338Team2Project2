@@ -13,6 +13,7 @@
             android:id="@+id/etName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:hint="Recipe Name"
             android:minHeight="48dp" />
 
@@ -20,7 +21,7 @@
             android:id="@+id/etLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-          android:inputType="textUri"
+            android:inputType="textUri"
             android:hint="Preparation Link"
             android:minHeight="48dp" />
 

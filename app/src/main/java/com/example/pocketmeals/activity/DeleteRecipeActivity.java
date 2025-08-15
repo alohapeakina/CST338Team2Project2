@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * @author Team 2
- * created: 8/11/2025
+ * Created 8/12/2025
  * Explanation: The DeleteRecipeActivity allows users to delete recipes from the database.
  * It displays a list of all available recipes and, upon a user clicking on an item,
  * the corresponding recipe is removed from the database.

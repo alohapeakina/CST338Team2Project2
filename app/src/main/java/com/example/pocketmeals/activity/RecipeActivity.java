@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pocketmeals.R;
-import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.database.viewHolders.RecipeAdapter;
 import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
 
@@ -21,7 +19,7 @@ import java.util.ArrayList;
 
 /**
  * @author Andrew Lee
- * created: 8/12/2025
+ * Created 8/12/2025
  * Explanation: The RecipeActivity class displays a list of all available recipes in a
  * {@link RecyclerView}. It allows users to view, add, and delete recipes.
  * The recipe data is managed using a {@link RecipeViewModel}.
