@@ -14,7 +14,6 @@ import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.database.dao.RecipeDAO;
 import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -32,10 +31,10 @@ public class PocketMealsRepository {
   private static final String TAG = "POCKETMEALSREPOSITORY";
   private final UserDAO userDAO;
   private static PocketMealsRepository repository;
-  private RecipeDAO recipeDAO;
-  private MealDAO mealDAO;
-  private LiveData<List<Recipe>> allRecipes;
-  private LiveData<List<User>> allAccounts;
+  private final RecipeDAO recipeDAO;
+  private final MealDAO mealDAO;
+  private final LiveData<List<Recipe>> allRecipes;
+  private final LiveData<List<User>> allAccounts;
 
   /**
    * Private constructor to enforce the singleton pattern.
@@ -65,12 +64,7 @@ public class PocketMealsRepository {
     }
 
     Future<PocketMealsRepository> future = PocketMealsDatabase.databaseWriteExecutor.submit(
-        new Callable<PocketMealsRepository>() {
-          @Override
-          public PocketMealsRepository call() throws Exception {
-            return new PocketMealsRepository(application);
-          }
-        }
+            () -> new PocketMealsRepository(application)
     );
     try {
       return future.get();
@@ -82,7 +76,11 @@ public class PocketMealsRepository {
 
   }
 
-  // ============= USER METHODS =============
+    public static void setRepository(PocketMealsRepository repository) {
+        PocketMealsRepository.repository = repository;
+    }
+
+    // ============= USER METHODS =============
   /**
    * Checks if a user with the given username already exists. If not, it creates a new user.
    * The callbacks are executed on the UI thread to update the UI after the database
@@ -151,9 +149,7 @@ public class PocketMealsRepository {
    * @param recipe The {@link Recipe} object to insert.
    */
   public void insertRecipe(Recipe recipe) {
-    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
-      recipeDAO.insert(recipe);
-    });
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> recipeDAO.insert(recipe));
   }
 
   /**
@@ -172,9 +168,7 @@ public class PocketMealsRepository {
    * @param recipe The {@link Recipe} object to update.
    */
   public void updateRecipe(Recipe recipe) {
-    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
-      recipeDAO.update(recipe);
-    });
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> recipeDAO.update(recipe));
   }
 
   /**
@@ -183,9 +177,7 @@ public class PocketMealsRepository {
    * @param recipe The {@link Recipe} object to delete.
    */
   public void deleteRecipe(Recipe recipe) {
-    PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
-      recipeDAO.delete(recipe);
-    });
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> recipeDAO.delete(recipe));
   }
 
   // ============= MEAL METHODS =============

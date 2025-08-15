@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -14,53 +15,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="Recipe Name"
-            android:minHeight="48dp" />
+            android:hint="@string/recipe_name"
+            android:inputType="text"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/etLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="@string/preparation_link"
             android:inputType="textUri"
-            android:hint="Preparation Link"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/etCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Calories"
+            android:autofillHints=""
+            android:hint="@string/calories"
             android:inputType="numberDecimal"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/etProtein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Protein (g)"
+            android:autofillHints=""
+            android:hint="@string/protein_g"
             android:inputType="numberDecimal"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/etFat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fat (g)"
+            android:autofillHints=""
+            android:hint="@string/fat_g"
             android:inputType="numberDecimal"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
         <EditText
             android:id="@+id/etCarbs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Carbs (g)"
+            android:autofillHints=""
+            android:hint="@string/carbs_g"
             android:inputType="numberDecimal"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="VisualLintTextFieldSize" />
 
-        <Button android:id="@+id/btnSaveRecipe"
-            android:text="@string/save_recipe"
-            android:backgroundTint="@color/oceanblue"
+        <Button
+            android:id="@+id/btnSaveRecipe"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/oceanblue"
+            android:text="@string/save_recipe"
+            android:textColor="#212121"
+            tools:ignore="VisualLintButtonSize" />
     </LinearLayout>
 </ScrollView>

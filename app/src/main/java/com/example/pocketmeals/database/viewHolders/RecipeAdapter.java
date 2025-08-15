@@ -1,5 +1,6 @@
 package com.example.pocketmeals.database.viewHolders;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
      *
      * @param recipes The new list of {@link Recipe} objects.
      */
+    @SuppressLint("NotifyDataSetChanged")
     public void setRecipes(List<Recipe> recipes) {
         this.recipes = recipes;
         notifyDataSetChanged();

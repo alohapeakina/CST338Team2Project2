@@ -34,6 +34,7 @@ public class RecipeViewModel extends AndroidViewModel {
     public RecipeViewModel(@NonNull Application application) {
         super(application);
         repository = PocketMealsRepository.getRepository(application);
+        assert repository != null;
         allRecipes = repository.getAllRecipes();
     }
 
