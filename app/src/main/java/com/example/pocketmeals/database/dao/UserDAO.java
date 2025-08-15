@@ -28,10 +28,6 @@ public interface UserDAO {
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
   LiveData<List<User>> getAllUsers();
 
-  //Test purposes to avoid needing to create a testing utility
-  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
-  List<User> getUserList();
-
   @Query("DELETE FROM " + PocketMealsDatabase.USER_TABLE)
   void deleteAll();
 
@@ -40,5 +36,15 @@ public interface UserDAO {
 
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE id == :userId")
   LiveData<User> getUserByUserId(int userId);
+
+  //Test purposes to avoid needing to create a testing utility
+  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
+  List<User> getUserList();
+
+  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE username == :username")
+  User getUserByUserNameSync(String username);
+
+  @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE id == :userId")
+  User getUserByUserIdSync(int userId);
 
 }

@@ -1,6 +1,5 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 
-import com.example.pocketmeals.activity.ShoppingListActivity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.test.core.app.ApplicationProvider;
@@ -13,31 +12,31 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Objects;
 
 /**
- * Instrumented test class for ShoppingListActivity's Intent factory method.
+ * Instrumented test class for SignupActivity's Intent factory method.
  * This test runs on an Android device or emulator to verify the Intent.
  */
 @RunWith(AndroidJUnit4.class)
-public class ShoppingListActivityTest {
+public class SignupActivityTest {
 
     /**
-     * Tests the shoppingListIntentFactory method to ensure it creates a valid Intent
-     * that correctly targets the ShoppingListActivity class.
+     * Tests the signupIntentFactory method to ensure it creates a valid Intent
+     * that correctly targets the SignupActivity class.
      */
     @Test
-    public void shoppingListIntentFactory_createsCorrectIntent() {
+    public void signupIntentFactory_createsCorrectIntent() {
         // Get a test context from the application, required to create an Intent.
         Context context = ApplicationProvider.getApplicationContext();
 
         // Call the static factory method to get the Intent to test.
-        Intent intent = ShoppingListActivity.shoppingListIntentFactory(context);
+        Intent intent = SignupActivity.signupIntentFactory(context);
 
         // Use assertions to verify the Intent.
         // Check that the Intent object itself is not null.
         assertNotNull(intent);
 
-        // Verify that the Intent's target component is the ShoppingListActivity.
+        // Verify that the Intent's target component is the SignupActivity.
         // Compare the class name of the component with the expected class name.
-        assertEquals(ShoppingListActivity.class.getName(), Objects.requireNonNull(intent.getComponent()).getClassName());
+        assertEquals(SignupActivity.class.getName(), Objects.requireNonNull(intent.getComponent()).getClassName());
     }
 }
 

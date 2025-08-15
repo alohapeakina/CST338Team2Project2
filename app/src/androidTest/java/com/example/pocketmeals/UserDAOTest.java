@@ -57,26 +57,64 @@ public class UserDAOTest {
 
   @Test
   public void delete() {
-    //TODO: Add test logic
+    User user = new User("Test User","testpassword");
+    userDao.insert(user);
+    List<User> users = userDao.getUserList();
+    assertEquals(1, users.size());
+
+    userDao.delete(users.get(0));
+
+    List<User> usersAfterDelete = userDao.getUserList();
+    assertTrue(usersAfterDelete.isEmpty());
   }
 
   @Test
   public void getAllUsers() {
-    //TODO: Add test logic
+    userDao.insert(new User("User1","pass1"));
+    userDao.insert(new User("User2","pass2"));
+
+    List<User> users = userDao.getUserList();
+    assertEquals(2, users.size());
+    assertEquals("User1", users.get(0).getUsername());
+    assertEquals("User2", users.get(1).getUsername());
   }
 
   @Test
   public void deleteAll() {
-    //TODO: Add test logic
+    userDao.insert(new User("User1","pass1"));
+    userDao.insert(new User("User2","pass2"));
+
+    List<User> usersBefore = userDao.getUserList();
+    assertEquals(2, usersBefore.size());
+
+    userDao.deleteAll();
+
+    List<User> usersAfter = userDao.getUserList();
+    assertTrue(usersAfter.isEmpty());
   }
 
   @Test
   public void getUserByUserName() {
-    //TODO: Add test logic
+    User user = new User("TestUser","testpass");
+    userDao.insert(user);
+
+    User retrieved = userDao.getUserByUserNameSync("TestUser");
+    assertNotNull(retrieved);
+    assertEquals("TestUser", retrieved.getUsername());
+    assertEquals("testpass", retrieved.getPassword());
   }
 
   @Test
   public void getUserByUserId() {
-    //TODO: Add test logic
+    User user = new User("TestUser","testpass");
+    userDao.insert(user);
+
+    List<User> users = userDao.getUserList();
+    int id = users.get(0).getId();
+
+    User retrieved = userDao.getUserByUserIdSync(id);
+    assertNotNull(retrieved);
+    assertEquals(id, retrieved.getId());
+    assertEquals("TestUser", retrieved.getUsername());
   }
 }

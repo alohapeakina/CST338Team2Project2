@@ -1,6 +1,5 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 
-import com.example.pocketmeals.activity.AddRecipeActivity;
 import android.content.Context;
 import androidx.test.core.app.ApplicationProvider;
 import org.junit.Test;
