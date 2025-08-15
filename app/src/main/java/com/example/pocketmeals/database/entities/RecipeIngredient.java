@@ -5,6 +5,8 @@ import androidx.room.ForeignKey;
 
 import androidx.room.PrimaryKey;
 import com.example.pocketmeals.database.PocketMealsDatabase;
+import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
+import java.util.List;
 
 @Entity(tableName = PocketMealsDatabase.RECIPE_INGREDIENTS_TABLE,
         foreignKeys = {
@@ -29,6 +31,64 @@ public class RecipeIngredient {
         this.ingredientId = ingredientId;
         this.quantity = quantity;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public int getIngredientId() {
+        return ingredientId;
+    }
+
+    public void setIngredientId(int ingredientId) {
+        this.ingredientId = ingredientId;
+    }
+
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    //TODO: Find which class to put this logic in
+/*    public void selectIngredientsForRecipe(int recipeId, List<Ingredient> selectedIngredients) {
+        List<RecipeIngredient> recipeIngredients = RecipeIngredientDAO.getIngredientsForRecipe(recipeId);
+
+        double totalCalories = 0;
+        double totalProtein = 0;
+        double totalFat = 0;
+        double totalCarbs = 0;
+
+        for(Ingredient ingredient : selectedIngredients) {
+
+            double ingredientCalories = ingredient.getCalories();
+            double ingredientProtein = ingredient.getProtein();
+            double ingredientFat = ingredient.getFat();
+            double ingredientCarbs = ingredient.getCarbs();
+
+
+            totalCalories += ingredientCalories;
+            totalProtein += ingredientProtein;
+            totalFat += ingredientFat;
+            totalCarbs += ingredientCarbs;
+        }
+
+        updateRecipeNutritionalInfo(recipeId, totalCalories, totalProtein, totalFat, totalCarbs);
+    }*/
 }
 
 

@@ -6,9 +6,11 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import com.example.pocketmeals.database.dao.MealDAO;
+import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Meal;
 import com.example.pocketmeals.database.entities.Recipe;
+import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
 
 import com.example.pocketmeals.database.dao.IngredientDAO;
@@ -24,6 +26,7 @@ import java.util.List;
 public class PocketMealsRepository {
   private static final String TAG = "POCKETMEALSREPOSITORY";
   private final UserDAO userDAO;
+  private RecipeIngredientDAO recipeIngredientDAO;
   private static PocketMealsRepository repository;
   private RecipeDAO recipeDAO;
   private MealDAO mealDAO;
@@ -38,6 +41,7 @@ public class PocketMealsRepository {
     this.recipeDAO = db.recipeDAO();
     this.mealDAO = db.mealDAO();
     this.ingredientDAO = db.ingredientDAO();
+    recipeIngredientDAO = db.recipeIngredientDAO();
     allRecipes = recipeDAO.getAllRecipes();
     allIngredients = ingredientDAO.getAllIngredients();
     allAccounts = userDAO.getAllUsers();
@@ -69,6 +73,7 @@ public class PocketMealsRepository {
 
   }
 
+  // ============= USER METHODS =============
   public void insertUser(User... user){
     PocketMealsDatabase.databaseWriteExecutor.execute(()->
     {
@@ -84,18 +89,20 @@ public class PocketMealsRepository {
     return userDAO.getUserByUserId(userId);
   }
   public LiveData<List<User>> getAllAccounts() { return allAccounts; }
+
+  // ============= RECIPE METHODS =============
   public LiveData<List<Recipe>> getAllRecipes() {
     return allRecipes;
-  }
-
-  public LiveData<List<Ingredient>> getAllIngredients() {
-    return allIngredients;
   }
 
   public void insertRecipe(Recipe recipe) {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       recipeDAO.insert(recipe);
     });
+  }
+
+  public LiveData<Recipe> getRecipeById(int id) {
+    return recipeDAO.getRecipeById(id);
   }
 
   public void updateRecipe(Recipe recipe) {
@@ -109,6 +116,15 @@ public class PocketMealsRepository {
       recipeDAO.delete(recipe);
     });
   }
+
+  public LiveData<List<Ingredient>> getAllIngredients() {
+    return allIngredients;
+  }
+
+  public List<RecipeIngredient> getIngredientsForRecipe(int recipeId) {
+    return recipeIngredientDAO.getIngredientsForRecipe(recipeId);
+  }
+
 
   // ============= MEAL METHODS =============
 
