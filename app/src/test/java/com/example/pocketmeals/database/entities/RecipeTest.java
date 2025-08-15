@@ -9,7 +9,7 @@ import org.junit.Test;
 /**
  * @author Andrew Lee
  * created: 8/15/2025
- * Explanation:
+ * Explanation: Unit tests for Recipe entity
  */public class RecipeTest {
 
    Recipe testRecipeOne;
