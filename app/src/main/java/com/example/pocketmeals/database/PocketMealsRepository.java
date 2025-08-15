@@ -9,6 +9,7 @@ import com.example.pocketmeals.database.dao.MealDAO;
 import com.example.pocketmeals.database.dao.RecipeIngredientDAO;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Meal;
+import com.example.pocketmeals.database.entities.MealRecipeName;
 import com.example.pocketmeals.database.entities.Recipe;
 import com.example.pocketmeals.database.entities.RecipeIngredient;
 import com.example.pocketmeals.database.entities.User;
@@ -113,8 +114,8 @@ public class PocketMealsRepository {
     });
   }
 
-  public LiveData<Recipe> getRecipeById(int id) {
-    return recipeDAO.getRecipeById(id);
+  public LiveData<Recipe> getRecipeById(int recipeId) {
+    return recipeDAO.getRecipeById(recipeId);
   }
 
   public void updateRecipe(Recipe recipe) {
@@ -173,6 +174,10 @@ public class PocketMealsRepository {
     });
   }
 
+  public void deleteMealById(int mealId) {
+    mealDAO.deleteMealById(mealId);
+  }
+
   public List<Meal> getAllMeals() {
     try {
       return mealDAO.getAllMeals();
@@ -207,6 +212,10 @@ public class PocketMealsRepository {
       Log.e(TAG, "Error getting all days", e);
       return null;
     }
+  }
+
+  public LiveData<List<MealRecipeName>> getAllMealsWithRecipeName() {
+    return mealDAO.getAllMealsWithRecipeName();
   }
 
   public void shutdown() {

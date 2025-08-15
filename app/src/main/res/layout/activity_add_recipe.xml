@@ -24,19 +24,11 @@
             android:minHeight="48dp" />
 
         <EditText
-            android:id="@+id/etServings"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Servings"
-            android:inputType="number"
-            android:minHeight="48dp" />
-
-        <EditText
             android:id="@+id/etCalories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Calories"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:minHeight="48dp" />
 
         <EditText
@@ -44,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Protein (g)"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:minHeight="48dp" />
 
         <EditText
@@ -52,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Fat (g)"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:minHeight="48dp" />
 
         <EditText
@@ -60,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Carbs (g)"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:minHeight="48dp" />
 
         <Button android:id="@+id/btnSaveRecipe"
