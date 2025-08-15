@@ -36,6 +36,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipe = recipes.get(position);
         holder.tvTitle.setText(recipe.getRecipeName());
         holder.tvDescription.setText(recipe.getRecipeLink());
+        holder.tvNutrition.setText(recipe.nutritionToString());
     }
 
     @Override
@@ -44,12 +45,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     }
 
     static class RecipeViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvDescription;
+        TextView tvTitle, tvDescription, tvNutrition;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvRecipeTitle);
             tvDescription = itemView.findViewById(R.id.tvRecipeDescription);
+            tvNutrition = itemView.findViewById(R.id.tvRecipeNutrition);
         }
     }
 }
