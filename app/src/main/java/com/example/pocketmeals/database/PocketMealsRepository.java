@@ -116,7 +116,7 @@ public class PocketMealsRepository {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       try {
         mealDAO.insert(meal);
-        Log.d(TAG, "Meal inserted: " + meal.getMealType() + " on " + meal.getDay());
+        Log.d(TAG, "Meal inserted: " + " on " + meal.getDay());
       } catch (Exception e) {
         Log.e(TAG, "Error inserting meal", e);
       }
@@ -127,7 +127,7 @@ public class PocketMealsRepository {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       try {
         mealDAO.update(meal);
-        Log.d(TAG, "Meal updated: " + meal.getMealType() + " on " + meal.getDay());
+        Log.d(TAG, "Meal updated: on " + meal.getDay());
       } catch (Exception e) {
         Log.e(TAG, "Error updating meal", e);
       }
@@ -138,7 +138,7 @@ public class PocketMealsRepository {
     PocketMealsDatabase.databaseWriteExecutor.execute(() -> {
       try {
         mealDAO.delete(meal);
-        Log.d(TAG, "Meal deleted: " + meal.getMealType() + " on " + meal.getDay());
+        Log.d(TAG, "Meal deleted: on " + meal.getDay());
       } catch (Exception e) {
         Log.e(TAG, "Error deleting meal", e);
       }
@@ -172,24 +172,6 @@ public class PocketMealsRepository {
     }
   }
 
-  public List<Meal> getMealsByType(String mealType) {
-    try {
-      return mealDAO.getMealsByType(mealType);
-    } catch (Exception e) {
-      Log.e(TAG, "Error getting meals by type", e);
-      return null;
-    }
-  }
-
-  public Meal getMealByDayAndType(String day, String mealType) {
-    try {
-      return mealDAO.getMealByDayAndType(day, mealType);
-    } catch (Exception e) {
-      Log.e(TAG, "Error getting meal by day and type", e);
-      return null;
-    }
-  }
-
   public List<String> getAllDays() {
     try {
       return mealDAO.getAllDays();
@@ -204,7 +186,6 @@ public class PocketMealsRepository {
       PocketMealsDatabase.databaseWriteExecutor.shutdown();
     }
   }
-
 
   // ============= ADMIN METHODS =============
   public void deleteUser(User user) {
