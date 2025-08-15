@@ -49,7 +49,6 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
                           DATABASE_NAME
                   )
                   .createFromAsset("database/pocketmeals.db")
-                  .fallbackToDestructiveMigration()
                   .build();
           Log.i(MainActivity.TAG, "Database Created");
         }

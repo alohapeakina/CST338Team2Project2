@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.pocketmeals.database.PocketMealsDatabase;
 import com.example.pocketmeals.database.entities.User;
@@ -36,7 +37,10 @@ public interface UserDAO {
 
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE id == :userId")
   LiveData<User> getUserByUserId(int userId);
-
+  
+  @Update
+  void update(User... users);
+  
   //Test purposes to avoid needing to create a testing utility
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " ORDER BY username")
   List<User> getUserList();
@@ -46,5 +50,4 @@ public interface UserDAO {
 
   @Query("SELECT * FROM " + PocketMealsDatabase.USER_TABLE + " WHERE id == :userId")
   User getUserByUserIdSync(int userId);
-
 }

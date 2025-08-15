@@ -2,9 +2,9 @@ package com.example.pocketmeals.database.viewHolders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.entities.User;
 import java.util.List;
 
@@ -13,29 +13,37 @@ import java.util.List;
  * created: 8/14/2025
  * Explanation:
  */
-public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.AdminViewHolder> {
-
+public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder> {
   private List<User> accounts;
+  private User selectedUser;
+  private final OnUserClickListener listener;
 
-public AdminAdapter(List<User> accounts) {
-  this.accounts = accounts;
-}
+  public interface OnUserClickListener {
+    void onUserClick(User user);
+  }
 
-public void setAccounts(List<User> accounts) {
-  this.accounts = accounts;
-  notifyDataSetChanged();
-}
+  public AdminAdapter(List<User> accounts, OnUserClickListener listener) {
+    this.accounts = accounts;
+    this.listener = listener;
+  }
 
   @NonNull
   @Override
-  public AdminAdapter.AdminViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-    View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-    return new AdminAdapter.AdminViewHolder(view);
+  public AdminViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    View view = LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.admin_list_item, parent, false);
+    return new AdminViewHolder(view);
   }
 
   @Override
-  public void onBindViewHolder(@NonNull AdminAdapter.AdminViewHolder holder, int position) {
-    holder.textAccountName.setText(accounts.get(position).getUsername());
+  public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
+    User user = accounts.get(position);
+    holder.bind(user);
+    holder.itemView.setOnClickListener(v -> {
+      selectedUser = user;
+      listener.onUserClick(user);
+      notifyDataSetChanged();
+    });
   }
 
   @Override
@@ -43,12 +51,12 @@ public void setAccounts(List<User> accounts) {
     return accounts.size();
   }
 
-  static class AdminViewHolder extends RecyclerView.ViewHolder {
-    TextView textAccountName;
-    public AdminViewHolder(View itemView) {
-      super(itemView);
-      textAccountName = itemView.findViewById(android.R.id.text1);
-    }
+  public void setAccounts(List<User> accounts) {
+    this.accounts = accounts;
+    notifyDataSetChanged();
   }
 
+  public User getSelectedUser() {
+    return selectedUser;
+  }
 }
