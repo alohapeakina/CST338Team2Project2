@@ -8,10 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import androidx.lifecycle.Observer;
 import com.example.pocketmeals.database.PocketMealsRepository;
-import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.entities.Recipe;
-
-import com.example.pocketmeals.database.entities.RecipeIngredient;
 import java.util.List;
 
 public class RecipeViewModel extends AndroidViewModel {
@@ -34,32 +31,6 @@ public class RecipeViewModel extends AndroidViewModel {
 
     public void delete(Recipe recipe) {
         repository.deleteRecipe(recipe);
-    }
-
-    public void selectIngredientsForRecipe(int recipeId, List<Ingredient> selectedIngredients) {
-        // Get the ingredients for the recipe (non-static)
-        List<RecipeIngredient> recipeIngredients = repository.getIngredientsForRecipe(recipeId);
-
-        double totalCalories = 0;
-        double totalProtein = 0;
-        double totalFat = 0;
-        double totalCarbs = 0;
-
-        for(Ingredient ingredient : selectedIngredients) {
-
-            double ingredientCalories = ingredient.getCalories();
-            double ingredientProtein = ingredient.getProtein();
-            double ingredientFat = ingredient.getFat();
-            double ingredientCarbs = ingredient.getCarbs();
-
-
-            totalCalories += ingredientCalories;
-            totalProtein += ingredientProtein;
-            totalFat += ingredientFat;
-            totalCarbs += ingredientCarbs;
-        }
-
-        updateRecipeNutritionalInfo(recipeId, totalCalories, totalProtein, totalFat, totalCarbs);
     }
 
     // Method to update nutritional info for the recipe

@@ -30,9 +30,6 @@
       android:exported="false"
       android:name=".activity.RecipeActivity" />
     <activity
-      android:exported="false"
-      android:name=".activity.ShoppingListActivity" />
-    <activity
         android:exported="false"
         android:name=".activity.DeleteRecipeActivity" />
     <activity
