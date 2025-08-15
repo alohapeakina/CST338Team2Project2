@@ -14,8 +14,8 @@ import com.example.pocketmeals.databinding.ActivityAdminBinding;
 import java.util.ArrayList;
 
 /**
- * @author Andrew Lee
- * created: 8/8/2025
+ * @author Team 2
+ * Created 8/12/2025
  * Explanation: This activity provides administrative functionalities, allowing an admin user
  * to manage other user accounts. It displays a list of all users and provides
  * options to delete a user, and grant or revoke admin privileges.

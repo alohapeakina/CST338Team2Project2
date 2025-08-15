@@ -37,5 +37,7 @@
   <string name="meal_planner">Meal Planner</string>
     <string name="recipe_title">Recipe Title</string>
   <string name="recipe_description">Recipe Description</string>
+    <string name="confirm_password">Confirm Password</string>
+  <string name="tap_a_recipe_to_delete">Tap a recipe to delete</string>
 
 </resources>
