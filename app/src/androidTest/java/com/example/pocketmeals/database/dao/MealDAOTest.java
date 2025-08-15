@@ -46,7 +46,7 @@ public class MealDAOTest {
 
     @Test
     public void insertAndGetMeal() {
-        Meal meal = new Meal("Monday");
+        Meal meal = new Meal("Monday", 1);
         mealDAO.insert(meal);
 
         List<Meal> meals = mealDAO.getAllMeals();
@@ -56,7 +56,7 @@ public class MealDAOTest {
 
     @Test
     public void updateMeal() {
-        Meal meal = new Meal("Monday");
+        Meal meal = new Meal("Monday", 1);
         mealDAO.insert(meal);
 
         Meal savedMeal = mealDAO.getAllMeals().get(0);
@@ -69,7 +69,7 @@ public class MealDAOTest {
 
     @Test
     public void deleteMeal() {
-        Meal meal = new Meal("Monday");
+        Meal meal = new Meal("Monday",1 );
         mealDAO.insert(meal);
 
         Meal savedMeal = mealDAO.getAllMeals().get(0);
@@ -80,9 +80,9 @@ public class MealDAOTest {
 
     @Test
     public void getMealsByDay() {
-        mealDAO.insert(new Meal("Monday"));
-        mealDAO.insert(new Meal("Monday"));
-        mealDAO.insert(new Meal("Tuesday"));
+        mealDAO.insert(new Meal("Monday",1 ));
+        mealDAO.insert(new Meal("Monday", 1));
+        mealDAO.insert(new Meal("Tuesday", 1));
 
         List<Meal> mondayMeals = mealDAO.getMealsByDay("Monday");
         assertEquals(2, mondayMeals.size());
