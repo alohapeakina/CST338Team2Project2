@@ -131,13 +131,16 @@ public class PocketMealsRepository {
       }
     });
   }
+  public LiveData<List<MealRecipeName>> getAllMealsWithRecipeNameForUser(int userId) {
+    return mealDAO.getAllMealsWithRecipeNameForUser(userId);
+  }
+
+  public LiveData<MealDAO.NutritionTotals> getNutritionTotalsForUser(int userId) {
+    return mealDAO.getNutritionTotalsForUser(userId);
+  }
 
   public void deleteMealById(int mealId) {
     mealDAO.deleteMealById(mealId);
-  }
-
-  public LiveData<List<MealRecipeName>> getAllMealsWithRecipeNameForUser(int userId) {
-    return mealDAO.getAllMealsWithRecipeNameForUser(userId);
   }
 
   // ============= ADMIN METHODS =============

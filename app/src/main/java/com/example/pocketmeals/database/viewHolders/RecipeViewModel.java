@@ -33,21 +33,4 @@ public class RecipeViewModel extends AndroidViewModel {
         repository.deleteRecipe(recipe);
     }
 
-    // Method to update nutritional info for the recipe
-    private void updateRecipeNutritionalInfo(int recipeId, double totalCalories, double totalProtein, double totalCarbs, double totalFat) {
-        // Observe the recipe and update its nutritional info
-        LiveData<Recipe> recipeLiveData = repository.getRecipeById(recipeId);
-        recipeLiveData.observeForever(new Observer<Recipe>() {
-            @Override
-            public void onChanged(Recipe recipe) {
-                if (recipe != null) {
-                    recipe.setTotalCalories(totalCalories);
-                    recipe.setProtein(totalProtein);
-                    recipe.setCarbs(totalCarbs);
-                    recipe.setFat(totalFat);
-                    repository.updateRecipe(recipe);
-                }
-            }
-        });
-    }
 }

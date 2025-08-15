@@ -14,7 +14,6 @@ import com.example.pocketmeals.database.viewHolders.RecipeAdapter;
 import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Andrew Lee

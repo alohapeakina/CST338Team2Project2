@@ -54,7 +54,25 @@ public interface MealDAO {
   @Query("DELETE FROM meal WHERE mealId = :mealId")
   void deleteMealById(int mealId);
 
+  // Keeps list of meals in meal plan in order
   @Query("SELECT DISTINCT day FROM meal ORDER BY day ASC")
   List<String> getAllDays();
+
+  @Query("SELECT " +
+      "SUM(r.totalCalories) AS totalCalories, " +
+      "SUM(r.protein) AS totalProtein, " +
+      "SUM(r.fat) AS totalFat, " +
+      "SUM(r.carbs) AS totalCarbs " +
+      "FROM meal m " +
+      "INNER JOIN recipes r ON m.recipeId = r.recipeId " +
+      "WHERE m.userId = :userId")
+  LiveData<NutritionTotals> getNutritionTotalsForUser(int userId);
+
+  public static class NutritionTotals {
+    public int totalCalories;
+    public int totalProtein;
+    public int totalFat;
+    public int totalCarbs;
+  }
 
 }
