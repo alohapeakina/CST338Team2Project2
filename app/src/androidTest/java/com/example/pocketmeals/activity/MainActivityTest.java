@@ -1,6 +1,5 @@
-package com.example.pocketmeals;
+package com.example.pocketmeals.activity;
 
-import com.example.pocketmeals.activity.MainActivity;
 import android.content.Context;
 import android.content.Intent;
 import androidx.test.core.app.ApplicationProvider;

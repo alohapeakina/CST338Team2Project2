@@ -1,5 +1,6 @@
 package com.example.pocketmeals.database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -14,17 +15,17 @@ public class Recipe {
     private String recipeName;
     private String recipeLink;
     private int servings;
-    private double caloriesPerServing;
+    private double totalCalories;
     private double protein;
     private double fat;
     private double carbs;
 
     public Recipe(String recipeName, String recipeLink, int servings,
-                  double caloriesPerServing, double protein, double fat, double carbs) {
+                  double totalCalories, double protein, double fat, double carbs) {
         this.recipeName = recipeName;
         this.recipeLink = recipeLink;
         this.servings = servings;
-        this.caloriesPerServing = caloriesPerServing;
+        this.totalCalories = totalCalories;
         this.protein = protein;
         this.fat = fat;
         this.carbs = carbs;
@@ -43,8 +44,8 @@ public class Recipe {
     public int getServings() { return servings; }
     public void setServings(int servings) { this.servings = servings; }
 
-    public double getCaloriesPerServing() { return caloriesPerServing; }
-    public void setCaloriesPerServing(double caloriesPerServing) { this.caloriesPerServing = caloriesPerServing; }
+    public double getTotalCalories() { return totalCalories; }
+    public void setTotalCalories(double totalCalories) { this.totalCalories = totalCalories; }
 
     public double getProtein() { return protein; }
     public void setProtein(double protein) { this.protein = protein; }
@@ -54,4 +55,14 @@ public class Recipe {
 
     public double getCarbs() { return carbs; }
     public void setCarbs(double carbs) { this.carbs = carbs; }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return recipeName + "\n" +
+            "kCal: " + totalCalories +
+            " Protein: " + protein +
+            " Fat: " + fat +
+            " Carbs: " + carbs;
+    }
 }

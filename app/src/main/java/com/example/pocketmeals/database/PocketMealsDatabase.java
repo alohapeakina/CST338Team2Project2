@@ -21,7 +21,7 @@ import com.example.pocketmeals.database.dao.UserDAO;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Recipe.class, Ingredient.class, RecipeIngredient.class, Meal.class}, version = 7, exportSchema = false)
+@Database(entities = {User.class, Recipe.class, Ingredient.class, RecipeIngredient.class, Meal.class}, version = 8, exportSchema = false)
 public abstract class PocketMealsDatabase extends RoomDatabase {
   public abstract UserDAO userDAO();
   public abstract RecipeDAO recipeDAO();
@@ -37,7 +37,9 @@ public abstract class PocketMealsDatabase extends RoomDatabase {
   public static final String MEAL_TABLE = "meal";
   private static final int NUMBER_OF_THREADS = 4;
   static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-    static PocketMealsDatabase getDatabase(final Context context) {
+
+  //TODO: Review whether asynchronous call to populate database should be created
+  static PocketMealsDatabase getDatabase(final Context context) {
     if (INSTANCE == null) {
       synchronized (PocketMealsDatabase.class) {
         if (INSTANCE == null) {
