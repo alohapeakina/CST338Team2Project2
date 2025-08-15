@@ -38,7 +38,6 @@ public class MealPlanActivity extends AppCompatActivity {
 
     // UI Components
     private Spinner daySpinner;
-    private Spinner mealTypeSpinner;
     private Spinner recipeSpinner;
     private ListView mealPlanListView;
     private Button addMealButton;
@@ -47,7 +46,6 @@ public class MealPlanActivity extends AppCompatActivity {
 
     // Data lists
     private List<String> days;
-    private List<String> mealTypes;
     private List<Recipe> recipes;
     private List<Meal> currentMealPlan;
     private ArrayAdapter<String> mealPlanAdapter;
@@ -76,7 +74,6 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private void initializeViews() {
         daySpinner = findViewById(R.id.daySpinner);
-        mealTypeSpinner = findViewById(R.id.mealTypeSpinner);
         recipeSpinner = findViewById(R.id.recipeSpinner);
         mealPlanListView = findViewById(R.id.mealPlanListView);
         addMealButton = findViewById(R.id.addMealButton);
@@ -89,9 +86,6 @@ public class MealPlanActivity extends AppCompatActivity {
         days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
                 "Friday", "Saturday", "Sunday");
 
-        // Initialize meal types
-        mealTypes = Arrays.asList("Breakfast", "Lunch", "Dinner", "Snack");
-
         // Initialize empty lists
         recipes = new ArrayList<>();
         currentMealPlan = new ArrayList<>();
@@ -101,11 +95,6 @@ public class MealPlanActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(dayAdapter);
-
-        ArrayAdapter<String> mealTypeAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, mealTypes);
-        mealTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mealTypeSpinner.setAdapter(mealTypeAdapter);
 
         // Setup meal plan list view
         mealPlanAdapter = new ArrayAdapter<>(this,
@@ -190,7 +179,7 @@ public class MealPlanActivity extends AppCompatActivity {
         List<String> displayItems = new ArrayList<>();
 
         for (Meal meal : currentMealPlan) {
-            String displayText = meal.getDay() + " - " + meal.getMealType();
+            String displayText = meal.getDay();
             displayItems.add(displayText);
         }
 
@@ -205,12 +194,11 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private void addMealToPlan() {
         String selectedDay = (String) daySpinner.getSelectedItem();
-        String selectedMealType = (String) mealTypeSpinner.getSelectedItem();
         int recipePosition = recipeSpinner.getSelectedItemPosition();
 
         // Validate selections
-        if (selectedDay == null || selectedMealType == null) {
-            Toast.makeText(this, "Please select day and meal type", Toast.LENGTH_SHORT).show();
+        if (selectedDay == null) {
+            Toast.makeText(this, "Please select day", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -222,19 +210,8 @@ public class MealPlanActivity extends AppCompatActivity {
         // Check if meal already exists for this day and type
         executor.execute(() -> {
             try {
-                Meal existingMeal = repository.getMealByDayAndType(selectedDay, selectedMealType);
-
-                if (existingMeal != null) {
-                    runOnUiThread(() -> {
-                        Toast.makeText(MealPlanActivity.this,
-                                "Meal already exists for " + selectedDay + " " + selectedMealType,
-                                Toast.LENGTH_SHORT).show();
-                    });
-                    return;
-                }
-
                 // Create new meal
-                Meal newMeal = new Meal(selectedMealType, selectedDay);
+                Meal newMeal = new Meal(selectedDay);
                 repository.insertMeal(newMeal);
 
                 runOnUiThread(() -> {

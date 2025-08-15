@@ -16,12 +16,10 @@ public class Meal {
   @PrimaryKey(autoGenerate = true)
   private int mealId;
 
-  private String mealType; // e.g., "breakfast", "lunch", "dinner", "snack"
   private String day; // e.g., "Monday", "Tuesday", etc. or date format
 
   // Constructor
-  public Meal(String mealType, String day) {
-    this.mealType = mealType;
+  public Meal(String day) {
     this.day = day;
   }
 
@@ -32,14 +30,6 @@ public class Meal {
 
   public void setMealId(int mealId) {
     this.mealId = mealId;
-  }
-
-  public String getMealType() {
-    return mealType;
-  }
-
-  public void setMealType(String mealType) {
-    this.mealType = mealType;
   }
 
   public String getDay() {
@@ -54,7 +44,7 @@ public class Meal {
   public String toString() {
     return "Meal{" +
         "mealId=" + mealId +
-        ", mealType='" + mealType + '\'' +
+/*        ", mealType='" + mealType + '\'' +*/
         ", day='" + day + '\'' +
         '}';
   }

@@ -16,17 +16,15 @@ public class Recipe {
     private int recipeId;
     private String recipeName;
     private String recipeLink;
-    private int servings;
     private double totalCalories;
     private double protein;
     private double fat;
     private double carbs;
 
-    public Recipe(String recipeName, String recipeLink, int servings,
+    public Recipe(String recipeName, String recipeLink,
                   double totalCalories, double protein, double fat, double carbs) {
         this.recipeName = recipeName;
         this.recipeLink = recipeLink;
-        this.servings = servings;
         this.totalCalories = totalCalories;
         this.protein = protein;
         this.fat = fat;
@@ -42,9 +40,6 @@ public class Recipe {
 
     public String getRecipeLink() { return recipeLink; }
     public void setRecipeLink(String recipeLink) { this.recipeLink = recipeLink; }
-
-    public int getServings() { return servings; }
-    public void setServings(int servings) { this.servings = servings; }
 
     public double getTotalCalories() { return totalCalories; }
     public void setTotalCalories(double totalCalories) { this.totalCalories = totalCalories; }
