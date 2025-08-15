@@ -61,7 +61,7 @@ public class Recipe {
     @NonNull
     @Override
     public String toString() {
-        return recipeName + "\n" +
+        return recipeName + "\n" + recipeLink + "\n" +
             "kCal: " + totalCalories +
             " Protein: " + protein +
             " Fat: " + fat +
