@@ -6,8 +6,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.PocketMealsRepository;
 import com.example.pocketmeals.database.entities.User;
 import com.example.pocketmeals.database.viewHolders.AdminAdapter;
@@ -22,56 +20,68 @@ import java.util.ArrayList;
  */
 public class AdminActivity extends AppCompatActivity {
 
-  private ActivityAdminBinding binding;
-  private AdminViewModel viewModel;
-  private AdminAdapter adapter;
+    private AdminAdapter adapter;
+  private PocketMealsRepository repository;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    binding = ActivityAdminBinding.inflate(getLayoutInflater());
+      com.example.pocketmeals.databinding.ActivityAdminBinding binding = ActivityAdminBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
 
-    RecyclerView recyclerView = findViewById(R.id.manageUsersRecyclerView);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    repository = PocketMealsRepository.getRepository(getApplication());
 
-    adapter = new AdminAdapter(new ArrayList<>());
-    recyclerView.setAdapter(adapter);
+    adapter = new AdminAdapter(new ArrayList<>(), user -> toastMaker("Selected: " + user.getUsername()));
 
-    viewModel = new ViewModelProvider(this).get(AdminViewModel.class);
-    viewModel.getAllAccounts().observe(this,users -> adapter.setAccounts(users));
+    binding.manageUsersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    binding.manageUsersRecyclerView.setAdapter(adapter);
 
+      AdminViewModel viewModel = new ViewModelProvider(this).get(AdminViewModel.class);
+    viewModel.getAllAccounts().observe(this, users -> adapter.setAccounts(users));
 
-    binding.deleteUserButton.setOnClickListener(v -> {
-      // TODO: Should send to view that provides text box to select from list of usernames to delete
-      toastMaker("User is deleted");
-        });
+    binding.deleteUserButton.setOnClickListener(v -> deleteUser());
+    binding.makeAdminButton.setOnClickListener(v -> makeAdmin());
+    binding.removeAdminButton.setOnClickListener(v -> removeAdmin());
+  }
 
-    binding.makeAdminButton.setOnClickListener(view -> {
-      //TODO: Should send to view that provides text box to select from a list of usernames to promote
-      toastMaker("Congrats on the promotion");
-        });
-
-    binding.removeAdminButton.setOnClickListener(view -> {
-      //TODO: Should send to view that provides text box to select from a list of usernames to promote
-      toastMaker("Returned to normal user");
-        });
+  private void deleteUser() {
+    User user = adapter.getSelectedUser();
+    if (user == null) {
+      toastMaker("Select a user first");
+      return;
     }
+    repository.deleteUser(user);
+    toastMaker("Deleted user: " + user.getUsername());
+  }
 
-    private void deleteUser(){
-    //TODO: Add deletion logic
+  private void makeAdmin() {
+    User user = adapter.getSelectedUser();
+    if (user == null) {
+      toastMaker("Select a user first");
+      return;
     }
+    user.setAdmin(true);
+    repository.updateUser(user);
+    toastMaker(user.getUsername() + " is now an admin");
+  }
 
-    private void makeAdmin(){
-    //TODO: Add logic for promoting account to admin
+  private void removeAdmin() {
+    User user = adapter.getSelectedUser();
+    if (user == null) {
+      toastMaker("Select a user first");
+      return;
     }
+    user.setAdmin(false);
+    repository.updateUser(user);
+    toastMaker(user.getUsername() + " is now a regular user");
+  }
 
-    private void toastMaker(String message) {
+  private void toastMaker(String message) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-    }
+  }
 
-    public static Intent adminIntentFactory(Context context) {
-        return new Intent(context, AdminActivity.class);
-    }
+  public static Intent adminIntentFactory(Context context) {
+    return new Intent(context, AdminActivity.class);
+  }
 }

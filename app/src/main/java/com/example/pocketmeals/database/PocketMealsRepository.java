@@ -206,4 +206,13 @@ public class PocketMealsRepository {
   }
 
 
+  // ============= ADMIN METHODS =============
+  public void deleteUser(User user) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> userDAO.delete(user));
+  }
+
+  public void updateUser(User user) {
+    PocketMealsDatabase.databaseWriteExecutor.execute(() -> userDAO.update(user));
+  }
+
 }
