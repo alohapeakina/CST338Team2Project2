@@ -27,7 +27,10 @@ import java.util.concurrent.Executors;
 /**
  * @author Team 2
  * Created 8/5/2025
- * Explanation: Activity for managing meal plans
+ * Explanation: This activity allows users to create and manage a weekly meal plan. Users can
+ * select a day and a recipe to add to their plan. It displays the current weekly
+ * meal plan and a summary of the total nutritional information for the planned meals.
+ * Users can also remove meals from the plan by long-pressing on an item in the list.
  */
 
 public class MealPlanActivity extends AppCompatActivity {
@@ -51,7 +54,20 @@ public class MealPlanActivity extends AppCompatActivity {
     private List<Recipe> recipes;
     private List<Meal> currentMealPlan;
     private ArrayAdapter<String> mealPlanAdapter;
+    private  List<MealRecipeName> displayedMeals = new ArrayList<>();
 
+
+    /**
+     * Called when the activity is first created.
+     * This method initializes the activity, retrieves the logged-in user's ID from
+     * shared preferences, and sets up the UI components. It initializes the database
+     * repository and an executor for background operations. It also observes the
+     * nutritional totals from the database to update the UI in real-time.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     * previously being shut down then this Bundle contains the data it most
+     * recently supplied in {@link #onSaveInstanceState(Bundle)}. Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +119,9 @@ public class MealPlanActivity extends AppCompatActivity {
         loadMealPlan();
     }
 
+    /**
+     * Initializes the UI components by finding them in the layout and assigning them to member variables.
+     */
     private void initializeViews() {
         daySpinner = findViewById(R.id.daySpinner);
         recipeSpinner = findViewById(R.id.recipeSpinner);
@@ -112,6 +131,10 @@ public class MealPlanActivity extends AppCompatActivity {
         mealPlanTitle = findViewById(R.id.mealPlanTitle);
     }
 
+    /**
+     * Sets up the data for the spinners and the list view.
+     * Initializes the list of days of the week and prepares the adapters for the spinners and list view.
+     */
     private void setupData() {
         // Initialize days of the week
         days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
@@ -136,6 +159,11 @@ public class MealPlanActivity extends AppCompatActivity {
         loadRecipes();
     }
 
+    /**
+     * Sets up the click and long-click listeners for the UI components.
+     * This includes listeners for the add meal button, view weekly plan button,
+     * and the long-press listener for the meal plan list view to enable deletion.
+     */
     private void setupListeners() {
         addMealButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +193,10 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Loads all recipes from the database and populates the recipe spinner.
+     * It observes changes in the recipe data and updates the spinner accordingly.
+     */
     private void loadRecipes() {
         repository.getAllRecipes().observe(this, recipeList -> {
             Log.d(TAG, "Recipes receivedL " + recipeList.size());
@@ -192,7 +224,10 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
-    private  List<MealRecipeName> displayedMeals = new ArrayList<>();
+    /**
+     * Loads the user's meal plan from the database and updates the list view.
+     * It observes the list of meals and their associated recipe names and displays them in the list view.
+     */
     private void loadMealPlan() {
         repository.getAllMealsWithRecipeNameForUser(loggedInUserID).observe(this, meals -> {
             displayedMeals.clear();
@@ -217,6 +252,12 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Adds a new meal to the user's meal plan.
+     * It retrieves the selected day and recipe from the spinners, validates the input,
+     * and inserts the new meal into the database on a background thread. Upon
+     * successful insertion, it shows a toast message and reloads the meal plan list.
+     */
     private void addMealToPlan() {
         String selectedDay = (String) daySpinner.getSelectedItem();
         int recipePosition = recipeSpinner.getSelectedItemPosition();
@@ -264,6 +305,12 @@ public class MealPlanActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * A factory method to create an {@link Intent} for starting the {@link MealPlanActivity}.
+     *
+     * @param packageContext The context of the calling activity.
+     * @return A new {@link Intent} configured to start the {@link MealPlanActivity}.
+     */
     public static Intent mealPlanIntentFactory(Context packageContext) {
         return new Intent(packageContext, MealPlanActivity.class);
     }
