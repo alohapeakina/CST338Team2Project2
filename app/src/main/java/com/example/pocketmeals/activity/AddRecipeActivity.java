@@ -15,7 +15,7 @@ import com.example.pocketmeals.database.entities.Recipe;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
-    private EditText etName, etLink, etServings, etCalories, etProtein, etFat, etCarbs;
+    private EditText etName, etLink, etCalories, etProtein, etFat, etCarbs;
     private PocketMealsRepository repository;
 
     @Override
@@ -27,7 +27,6 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         etName = findViewById(R.id.etName);
         etLink = findViewById(R.id.etLink);
-        etServings = findViewById(R.id.etServings);
         etCalories = findViewById(R.id.etCalories);
         etProtein = findViewById(R.id.etProtein);
         etFat = findViewById(R.id.etFat);
@@ -37,7 +36,6 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnSave.setOnClickListener(v -> {
             String name = etName.getText().toString().trim();
             String link = etLink.getText().toString().trim();
-            int servings = Integer.parseInt(etServings.getText().toString().trim());
             int calories = Integer.parseInt(etCalories.getText().toString().trim());
             int protein = Integer.parseInt(etProtein.getText().toString().trim());
             int fat = Integer.parseInt(etFat.getText().toString().trim());
