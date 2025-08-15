@@ -1,4 +1,5 @@
 package com.example.pocketmeals.database.viewHolders;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,6 +68,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder> {
    * @param holder The {@link AdminViewHolder} which should be updated to represent the contents of the item at the given position in the data set.
    * @param position The position of the item within the adapter's data set.
    */
+  @SuppressLint("NotifyDataSetChanged")
   @Override
   public void onBindViewHolder(@NonNull AdminViewHolder holder, int position) {
     User user = accounts.get(position);
@@ -93,6 +95,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminViewHolder> {
    *
    * @param accounts The new list of {@link User} accounts.
    */
+  @SuppressLint("NotifyDataSetChanged")
   public void setAccounts(List<User> accounts) {
     this.accounts = accounts;
     notifyDataSetChanged();

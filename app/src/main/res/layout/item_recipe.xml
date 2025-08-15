@@ -20,17 +20,17 @@
         android:id="@+id/tvRecipeDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="@string/recipe_description"
-        android:textSize="14sp"
-        android:textColor="@android:color/darker_gray"
-        android:layout_marginTop="4dp" />
+        android:textColor="#757575"
+        android:textSize="14sp" />
 
     <TextView
-      android:id="@+id/tvRecipeNutrition"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="@string/nutritional_info"
-      android:textSize="14sp"
-      android:textColor="@android:color/darker_gray"
-      android:layout_marginTop="4dp" />
+        android:id="@+id/tvRecipeNutrition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/nutritional_info"
+        android:textColor="#757575"
+        android:textSize="14sp" />
 </LinearLayout>

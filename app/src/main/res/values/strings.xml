@@ -39,5 +39,17 @@
   <string name="recipe_description">Recipe Description</string>
     <string name="confirm_password">Confirm Password</string>
   <string name="tap_a_recipe_to_delete">Tap a recipe to delete</string>
+    <string name="preparation_link">Preparation Link</string>
+  <string name="calories">Calories</string>
+  <string name="protein_g">Protein (g)</string>
+  <string name="fat_g">Fat (g)</string>
+  <string name="carbs_g">Carbs (g)</string>
+  <string name="no_account_sign_up_here">No account? Sign up here.</string>
+  <string name="calories_0">Calories: 0</string>
+  <string name="carbs_0g">Carbs: 0g</string>
+  <string name="fat_0g">Fat: 0g</string>
+  <string name="protein_0g">Protein: 0g</string>
+  <string name="create_account">Create Account</string>
+  <string name="user">User</string>
 
 </resources>

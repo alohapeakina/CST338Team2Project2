@@ -20,8 +20,7 @@ import java.util.List;
  */
 public class AdminViewModel extends AndroidViewModel {
 
-  private final PocketMealsRepository repository;
-  private final LiveData<List<User>> allAccounts;
+    private final LiveData<List<User>> allAccounts;
 
   /**
    * Constructs an `AdminViewModel`.
@@ -34,8 +33,9 @@ public class AdminViewModel extends AndroidViewModel {
    */
   public AdminViewModel(@NonNull Application application) {
     super(application);
-    repository = PocketMealsRepository.getRepository(application);
-    allAccounts = repository.getAllAccounts();
+      PocketMealsRepository repository = PocketMealsRepository.getRepository(application);
+      assert repository != null;
+      allAccounts = repository.getAllAccounts();
   }
 
   /**

@@ -1,11 +1,11 @@
 package com.example.pocketmeals.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -47,14 +47,10 @@ public class MealPlanActivity extends AppCompatActivity {
     private ListView mealPlanListView;
     private Button addMealButton;
     private Button viewWeeklyPlanButton;
-    private TextView mealPlanTitle;
 
-    // Data lists
-    private List<String> days;
     private List<Recipe> recipes;
-    private List<Meal> currentMealPlan;
     private ArrayAdapter<String> mealPlanAdapter;
-    private  List<MealRecipeName> displayedMeals = new ArrayList<>();
+    private final List<MealRecipeName> displayedMeals = new ArrayList<>();
 
 
     /**
@@ -68,6 +64,7 @@ public class MealPlanActivity extends AppCompatActivity {
      * previously being shut down then this Bundle contains the data it most
      * recently supplied in {@link #onSaveInstanceState(Bundle)}. Note: Otherwise it is null.
      */
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +86,7 @@ public class MealPlanActivity extends AppCompatActivity {
         repository = PocketMealsRepository.getRepository(getApplication());
 
         //Updates nutritional information in grid
+        assert repository != null;
         repository.getNutritionTotalsForUser(loggedInUserID).observe(this, totals -> {
             if (totals != null) {
                 caloriesTextView.setText("Calories: " + totals.totalCalories);
@@ -128,7 +126,7 @@ public class MealPlanActivity extends AppCompatActivity {
         mealPlanListView = findViewById(R.id.mealPlanListView);
         addMealButton = findViewById(R.id.addMealButton);
         viewWeeklyPlanButton = findViewById(R.id.viewWeeklyPlanButton);
-        mealPlanTitle = findViewById(R.id.mealPlanTitle);
+        findViewById(R.id.mealPlanTitle);
     }
 
     /**
@@ -137,12 +135,12 @@ public class MealPlanActivity extends AppCompatActivity {
      */
     private void setupData() {
         // Initialize days of the week
-        days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
+        // Data lists
+        List<String> days = Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday",
                 "Friday", "Saturday", "Sunday");
 
         // Initialize empty lists
         recipes = new ArrayList<>();
-        currentMealPlan = new ArrayList<>();
 
         // Setup spinners
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(this,
@@ -165,19 +163,9 @@ public class MealPlanActivity extends AppCompatActivity {
      * and the long-press listener for the meal plan list view to enable deletion.
      */
     private void setupListeners() {
-        addMealButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addMealToPlan();
-            }
-        });
+        addMealButton.setOnClickListener(v -> addMealToPlan());
 
-        viewWeeklyPlanButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadMealPlan();
-            }
-        });
+        viewWeeklyPlanButton.setOnClickListener(v -> loadMealPlan());
 
         // Long click listener for removing meals
         mealPlanListView.setOnItemLongClickListener((parent, view, position, id) -> {
@@ -203,24 +191,22 @@ public class MealPlanActivity extends AppCompatActivity {
             for (Recipe r : recipeList) {
                 Log.d(TAG, "Recipe: " + r.getRecipeName());
             }
-            if (recipeList != null) {
-                recipes.clear();
-                recipes.addAll(recipeList);
+            recipes.clear();
+            recipes.addAll(recipeList);
 
-                List<String> recipeNames = new ArrayList<>();
-                recipeNames.add("Select a recipe...");
-                for (Recipe recipe : recipes) {
-                    recipeNames.add(recipe.getRecipeName());
-                }
-
-                ArrayAdapter<String> recipeAdapter = new ArrayAdapter<>(
-                    MealPlanActivity.this,
-                    android.R.layout.simple_spinner_item,
-                    recipeNames);
-                recipeAdapter.setDropDownViewResource(
-                    android.R.layout.simple_spinner_dropdown_item);
-                recipeSpinner.setAdapter(recipeAdapter);
+            List<String> recipeNames = new ArrayList<>();
+            recipeNames.add("Select a recipe...");
+            for (Recipe recipe : recipes) {
+                recipeNames.add(recipe.getRecipeName());
             }
+
+            ArrayAdapter<String> recipeAdapter = new ArrayAdapter<>(
+                MealPlanActivity.this,
+                android.R.layout.simple_spinner_item,
+                recipeNames);
+            recipeAdapter.setDropDownViewResource(
+                android.R.layout.simple_spinner_dropdown_item);
+            recipeSpinner.setAdapter(recipeAdapter);
         });
     }
 
@@ -297,10 +283,8 @@ public class MealPlanActivity extends AppCompatActivity {
                 });
             } catch (Exception e) {
                 Log.e(TAG, "Error adding meal", e);
-                runOnUiThread(() -> {
-                    Toast.makeText(MealPlanActivity.this,
-                            "Error adding meal", Toast.LENGTH_SHORT).show();
-                });
+                runOnUiThread(() -> Toast.makeText(MealPlanActivity.this,
+                        "Error adding meal", Toast.LENGTH_SHORT).show());
             }
         });
     }
