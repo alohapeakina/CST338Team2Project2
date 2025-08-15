@@ -20,6 +20,7 @@
             android:id="@+id/etLink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+          android:inputType="textUri"
             android:hint="Preparation Link"
             android:minHeight="48dp" />
 
