@@ -13,14 +13,35 @@ import com.example.pocketmeals.R;
 import com.example.pocketmeals.database.entities.Ingredient;
 import com.example.pocketmeals.database.viewHolders.RecipeAdapter;
 import com.example.pocketmeals.database.viewHolders.RecipeViewModel;
+import com.example.pocketmeals.database.viewHolders.ShoppingListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Andrew Lee
+ * created: 8/12/2025
+ * Explanation: The RecipeActivity class displays a list of all available recipes in a
+ * {@link RecyclerView}. It allows users to view, add, and delete recipes.
+ * The recipe data is managed using a {@link RecipeViewModel}.
+ */
 public class RecipeActivity extends AppCompatActivity {
     private RecipeAdapter adapter;
     private RecipeViewModel viewModel;
 
+    /**
+     * Called when the activity is first created.
+     * This method initializes the activity's layout, sets up the {@link RecyclerView}
+     * with a {@link LinearLayoutManager} and a {@link RecipeAdapter}. It then
+     * initializes the {@link RecipeViewModel} and observes the list of all recipes,
+     * updating the adapter whenever the data changes. It also sets up click
+     * listeners for the "Add Recipe" and "Delete Recipe" buttons to navigate
+     * to the respective activities.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down
+     * then this Bundle contains the data it most recently supplied in {@link #onSaveInstanceState(Bundle)}.
+     * Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +61,12 @@ public class RecipeActivity extends AppCompatActivity {
         findViewById(R.id.btn_delete_recipe).setOnClickListener(v -> startActivity(DeleteRecipeActivity.deleteRecipeIntentFactory(RecipeActivity.this)));
     }
 
+    /**
+     * A factory method to create an {@link Intent} for starting the {@link RecipeActivity}.
+     *
+     * @param packageContext The context of the calling activity.
+     * @return A new {@link Intent} configured to start the {@link RecipeActivity}.
+     */
     public static Intent recipeIntentFactory(Context packageContext) {
         return new Intent(packageContext, RecipeActivity.class);
     }

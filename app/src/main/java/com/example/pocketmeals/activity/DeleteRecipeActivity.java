@@ -17,9 +17,27 @@ import com.example.pocketmeals.database.entities.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Team 2
+ * created: 8/11/2025
+ * Explanation: The DeleteRecipeActivity allows users to delete recipes from the database.
+ * It displays a list of all available recipes and, upon a user clicking on an item,
+ * the corresponding recipe is removed from the database.
+ */
 public class DeleteRecipeActivity extends AppCompatActivity {
     private RecipeViewModel recipeViewModel;
 
+    /**
+     * Called when the activity is first created.
+     * This method initializes the activity's layout, sets up the {@link ListView}
+     * to display a list of all recipes. It uses a {@link RecipeViewModel} to
+     * observe the list of recipes from the database. When a recipe is clicked,
+     * it is deleted from the database and a toast message is displayed.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down
+     * then this Bundle contains the data it most recently supplied in {@link #onSaveInstanceState(Bundle)}.
+     * Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +68,12 @@ public class DeleteRecipeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * A factory method to create an {@link Intent} for starting the {@link DeleteRecipeActivity}.
+     *
+     * @param packageContext The context of the calling activity.
+     * @return A new {@link Intent} configured to start the {@link DeleteRecipeActivity}.
+     */
     public static Intent deleteRecipeIntentFactory(Context packageContext) {
         return new Intent(packageContext, DeleteRecipeActivity.class);
     }
