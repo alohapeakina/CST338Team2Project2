@@ -1,5 +1,6 @@
 package com.example.pocketmeals.database.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -54,4 +55,14 @@ public class Recipe {
 
     public double getCarbs() { return carbs; }
     public void setCarbs(double carbs) { this.carbs = carbs; }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return recipeName + "\n" +
+            "kCal: " + totalCalories +
+            " Protein: " + protein +
+            " Fat: " + fat +
+            " Carbs: " + carbs;
+    }
 }

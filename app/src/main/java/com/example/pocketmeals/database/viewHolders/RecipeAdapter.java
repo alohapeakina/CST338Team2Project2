@@ -32,7 +32,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
-        holder.textView.setText(recipes.get(position).getRecipeName());
+        holder.textView.setText(recipes.get(position).toString());
     }
 
     @Override
